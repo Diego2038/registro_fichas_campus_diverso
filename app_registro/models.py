@@ -1,7 +1,6 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
+# Create your models here. 
 
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -23,3 +22,14 @@ class Persona(models.Model):
     telefono = models.CharField(max_length=20)
     estado_civil = models.CharField(max_length=30)
     identidad_etnico_racial = models.CharField(max_length=70)
+
+    class Meta:
+        db_table = "Persona"
+
+class PertenenciaGrupoPoblacional(models.Model):
+    id_grupo_poblacional = models.AutoField(primary_key=True)
+    nombre_grupo_poblacional = models.CharField(max_length=300)
+    personas = models.ManyToManyField(Persona)
+
+    class Meta:
+        db_table = "Pertenencia_grupo_poblacional"
