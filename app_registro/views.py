@@ -12,3 +12,4 @@ class PersonaListCreateView(generics.ListCreateAPIView):
 class PersonaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Persona.objects.all()
     serializer_class = PersonaSerializer
+    lookup_field = 'numero_documento'

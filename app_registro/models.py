@@ -8,7 +8,7 @@ class Persona(models.Model):
     nombre_identitario = models.CharField(max_length=150)
     nombre_y_apellido = models.CharField(max_length=150)
     tipo_documento = models.CharField(max_length=50)
-    numero_documento = models.CharField(max_length=30)
+    numero_documento = models.CharField(max_length=30, unique=True)
     fecha_nacimiento = models.DateField()
     estrato_socioeconomico = models.IntegerField()
     municipio_nacimiento = models.CharField(max_length=50)
