@@ -23,5 +23,4 @@ class PertenenciaGrupoPoblacionalListCreateView(generics.ListCreateAPIView):
 
 class PertenenciaGrupoPoblacionalRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PertenenciaGrupoPoblacional.objects.all()
-    serializer_class = PertenenciaGrupoPoblacionalSerializer
-    lookup_field = 'numero_documento'
+    serializer_class = PertenenciaGrupoPoblacionalSerializer 
