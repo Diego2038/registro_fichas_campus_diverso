@@ -29,7 +29,7 @@ class Persona(models.Model):
 class PertenenciaGrupoPoblacional(models.Model):
     id_grupo_poblacional = models.AutoField(primary_key=True)
     nombre_grupo_poblacional = models.CharField(max_length=300)
-    personas = models.ManyToManyField(Persona)
+    personas = models.ManyToManyField(Persona, blank=True)
 
     class Meta:
         db_table = "Pertenencia_grupo_poblacional"
