@@ -3,6 +3,7 @@ from .models import Persona, PertenenciaGrupoPoblacional
 
 
 class PertenenciaGrupoPoblacionalSerializer(serializers.ModelSerializer):
+    nombre_grupo_poblacional = serializers.CharField(max_length=300, required=True)
     class Meta:
         model = PertenenciaGrupoPoblacional
         fields = '__all__'
@@ -29,7 +30,7 @@ class PersonaSerializer(serializers.ModelSerializer):
         
         for pertenencia_grupo_poblacional_name in pertenencia_grupo_poblacional_names: 
             try: 
-                pertenencia_grupo_poblacional = PertenenciaGrupoPoblacional.objects.get(nombre_grupo_poblacional=pertenencia_grupo_poblacional_name) 
+                pertenencia_grupo_poblacional = PertenenciaGrupoPoblacional.objects.get(nombre_grupo_poblacional=pertenencia_grupo_poblacional_name.strip()) 
             except PertenenciaGrupoPoblacional.DoesNotExist as e:
                 pertenencia_grupo_poblacional = PertenenciaGrupoPoblacional.objects.create(nombre_grupo_poblacional=pertenencia_grupo_poblacional_name.strip())    
             pertenencia_grupo_poblacional.personas.add(persona) 

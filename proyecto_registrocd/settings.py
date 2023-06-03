@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_registro', #! NOTA: Aquí estaría el modelo de Persona
+    'app_registro', #! NOTA: Aquí estaría los campos de Datos Personales
     'app_diversidad_sexual',
     'rest_framework',
 ]
