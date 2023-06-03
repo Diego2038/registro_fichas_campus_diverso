@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here. 
+# Create your models here.  
 
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -21,7 +21,7 @@ class Persona(models.Model):
     comuna_barrio = models.CharField(max_length=20)
     telefono = models.CharField(max_length=20)
     estado_civil = models.CharField(max_length=30)
-    identidad_etnico_racial = models.CharField(max_length=70)
+    identidad_etnico_racial = models.CharField(max_length=70) 
 
     class Meta:
         db_table = "Persona"
