@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'app_registro', #! NOTA: Aquí estaría los campos de Datos Personales
     'app_diversidad_sexual',
     'rest_framework',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
