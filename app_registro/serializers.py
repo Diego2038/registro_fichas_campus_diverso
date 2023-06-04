@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Persona, PertenenciaGrupoPoblacional
-from rest_framework.response import Response
+from app_diversidad_sexual.serializers import DiversidadSexualSerializer
+from app_diversidad_sexual.models import DiversidadSexual
 
 class PertenenciaGrupoPoblacionalSerializer(serializers.ModelSerializer):
     nombre_grupo_poblacional = serializers.CharField(max_length=300, required=True)
@@ -32,6 +33,16 @@ class PersonaSerializer(serializers.ModelSerializer):
     #     child=serializers.CharField(max_length=300),
     #     write_only=True #! Sin este campo aparecen errores
     # ) 
+   
+    diversidad_sexual = serializers.SerializerMethodField()
+    def get_diversidad_sexual(self, obj):
+        try:
+            diversidad_sexual_instance = DiversidadSexual.objects.get(id_persona_id=obj.id_persona)
+            serializer = DiversidadSexualSerializer(diversidad_sexual_instance)  
+            return serializer.data
+        except DiversidadSexual.DoesNotExist:
+            return []
+        
     
     class Meta:
         model = Persona
