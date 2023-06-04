@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.  
 
+class PertenenciaGrupoPoblacional(models.Model):
+    id_grupo_poblacional = models.AutoField(primary_key=True)
+    nombre_grupo_poblacional = models.CharField(max_length=300) 
+
+    class Meta:
+        db_table = "Pertenencia_grupo_poblacional"
+
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
     incluir_correo_en_respuesta = models.BooleanField(default=False)
@@ -21,15 +28,10 @@ class Persona(models.Model):
     comuna_barrio = models.CharField(max_length=20)
     telefono = models.CharField(max_length=20)
     estado_civil = models.CharField(max_length=30)
-    identidad_etnico_racial = models.CharField(max_length=70) 
+    identidad_etnico_racial = models.CharField(max_length=70)
+    pertenencia_grupo_poblacional = models.ManyToManyField(PertenenciaGrupoPoblacional,max_length=300, related_name="personas", blank=False) 
 
     class Meta:
         db_table = "Persona"
 
-class PertenenciaGrupoPoblacional(models.Model):
-    id_grupo_poblacional = models.AutoField(primary_key=True)
-    nombre_grupo_poblacional = models.CharField(max_length=300)
-    personas = models.ManyToManyField(Persona, blank=True)
 
-    class Meta:
-        db_table = "Pertenencia_grupo_poblacional"
