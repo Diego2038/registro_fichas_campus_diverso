@@ -8,14 +8,30 @@ class PertenenciaGrupoPoblacionalSerializer(serializers.ModelSerializer):
         model = PertenenciaGrupoPoblacional
         fields = '__all__'
 
-
+class PertenenciaGrupoPoblacionalListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.nombre_grupo_poblacional
+    
+    def to_internal_value(self, data):
+        if isinstance(data, str):
+            return data.strip()
+        elif isinstance(data, dict) and 'nombre_grupo_poblacional' in data:
+            return data['nombre_grupo_poblacional'].strip()
+        raise serializers.ValidationError('Invalid input format.')
+    
+    
 
 class PersonaSerializer(serializers.ModelSerializer):
-    # pertenencia_grupo_poblacional = PertenenciaGrupoPoblacionalSerializer(many=True, required=True)
-    pertenencia_grupo_poblacional = serializers.ListField(
-        child=serializers.CharField(max_length=300),
-        write_only=True #! Sin este campo aparecen errores
-    ) 
+    pertenencia_grupo_poblacional = PertenenciaGrupoPoblacionalListingField(
+        many=True, 
+        queryset=PertenenciaGrupoPoblacional.objects.all(),
+        required=False, 
+        )
+    # pertenencia_grupo_poblacional = PertenenciaGrupoPoblacionalSerializer(many=True, required=False)
+    # pertenencia_grupo_poblacional = serializers.ListField(
+    #     child=serializers.CharField(max_length=300),
+    #     write_only=True #! Sin este campo aparecen errores
+    # ) 
     
     class Meta:
         model = Persona

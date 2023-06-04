@@ -8,6 +8,9 @@ class PertenenciaGrupoPoblacional(models.Model):
 
     class Meta:
         db_table = "Pertenencia_grupo_poblacional"
+    
+    def __str__(self):
+        return self.nombre_grupo_poblacional
 
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -30,6 +33,9 @@ class Persona(models.Model):
     estado_civil = models.CharField(max_length=30)
     identidad_etnico_racial = models.CharField(max_length=70)
     pertenencia_grupo_poblacional = models.ManyToManyField(PertenenciaGrupoPoblacional,max_length=300, related_name="personas", blank=False) 
+    
+    def __str__(self):
+        return self.numero_documento
 
     class Meta:
         db_table = "Persona"

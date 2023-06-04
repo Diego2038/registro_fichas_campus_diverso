@@ -14,6 +14,10 @@ class PersonaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Persona.objects.all()
     serializer_class = PersonaSerializer
     lookup_field = 'numero_documento'
+    
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
 
 # Pertenencia grupo poblacional
 
