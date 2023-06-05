@@ -3,6 +3,10 @@ from django.db import models
 # Create your models here.
 from app_registro.models import Persona
 
+class RespuestaCambioDocumento(models.Model):
+    id_respuesta_cambio_documento = models.AutoField(primary_key=True)
+    nombre_respuesta_cambio_documento = models.TextField()
+
 class OrientacionSexual(models.Model):
     id_orientacion_sexual = models.AutoField(primary_key=True)
     nombre_orientacion_sexual = models.CharField(max_length=200)
@@ -29,6 +33,7 @@ class DiversidadSexual(models.Model):
     identidades_de_genero = models.ManyToManyField(IdentidadGenero,max_length=200)
     expresiones_de_genero = models.ManyToManyField(ExpresionGenero,max_length=200)
     orientaciones_sexuales = models.ManyToManyField(OrientacionSexual,max_length=200)
+    respuestas_cambio_documento = models.ManyToManyField(RespuestaCambioDocumento)
 
     class Meta:
         db_table = "Diversidad_sexual"

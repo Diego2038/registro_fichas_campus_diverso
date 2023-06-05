@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual
+from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual, RespuestaCambioDocumento
 from app_registro.models import Persona
 
+
+class RespuestaCambioDocumentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RespuestaCambioDocumento
+        fields = '__all__'
 
 class OrientacionSexualSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,6 +31,17 @@ class PronombreSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Listing Fields de los serializers
+
+class RespuestaCambioDocumentoListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.nombre_respuesta_cambio_documento
+   
+    def to_internal_value(self, data):
+        if isinstance(data, str):
+            return data.strip()
+        elif isinstance(data, dict):
+            return data['nombre_respuesta_cambio_documento'].strip()
+        raise serializers.ValidationError('Invalid input format.')
 
 class OrientacionSexualListingField(serializers.RelatedField):
     def to_representation(self, value):
@@ -75,13 +91,18 @@ class PronombreListingField(serializers.RelatedField):
 class DiversidadSexualSerializer(serializers.ModelSerializer):
     id_persona = serializers.CharField(max_length=30, required=True)
     
+    respuestas_cambio_documento = RespuestaCambioDocumentoListingField(
+        many=True,
+        queryset= RespuestaCambioDocumento.objects.all(),
+        required=False,
+    )
+    
     orientaciones_sexuales = OrientacionSexualListingField(
         many=True,
         queryset= OrientacionSexual.objects.all(),
         required=False,
     )
 
-    
     expresiones_de_genero = ExpresionGeneroListingField(
         many=True,
         queryset=ExpresionGenero.objects.all(),
@@ -108,6 +129,7 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Extracción de campos de la petición JSON
         id_persona = validated_data.pop('id_persona')
+        respuestas_cambio_documento = validated_data.pop('respuestas_cambio_documento')
         orientaciones_sexuales = validated_data.pop('orientaciones_sexuales')
         expresiones_de_genero = validated_data.pop('expresiones_de_genero')
         pronombres = validated_data.pop('pronombres', [])
@@ -117,6 +139,11 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
         
         # Creación del objeto DiversidadSexual
         diversidad_sexual = DiversidadSexual.objects.create(id_persona=persona, **validated_data)
+        
+        # RespuestaCambioDocumento
+        for nombre_respuesta_cambio_documento in respuestas_cambio_documento:
+            respuesta_cambio_documento, _ = RespuestaCambioDocumento.objects.get_or_create(nombre_respuesta_cambio_documento=nombre_respuesta_cambio_documento)
+            diversidad_sexual.respuestas_cambio_documento.add(respuesta_cambio_documento) 
         
         # OrientacionSexual
         for nombre_orientacion_sexual in orientaciones_sexuales:

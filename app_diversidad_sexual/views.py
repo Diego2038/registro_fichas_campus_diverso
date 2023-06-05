@@ -2,13 +2,22 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import generics
-from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual
-from .serializers import DiversidadSexualSerializer,PronombreSerializer, IdentidadGeneroSerializer, ExpresionGeneroSerializer, OrientacionSexualSerializer
+from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual, RespuestaCambioDocumento
+from .serializers import DiversidadSexualSerializer,PronombreSerializer, IdentidadGeneroSerializer, ExpresionGeneroSerializer, OrientacionSexualSerializer, RespuestaCambioDocumentoSerializer
 
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from app_registro.models import Persona 
+
+# RespuestaCambioDocumento
+class RespuestaCambioDocumentoListCreateView(generics.ListCreateAPIView):
+    queryset = RespuestaCambioDocumento.objects.all()
+    serializer_class = RespuestaCambioDocumentoSerializer
+   
+class RespuestaCambioDocumentoRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RespuestaCambioDocumento.objects.all()
+    serializer_class = RespuestaCambioDocumentoSerializer
 
 # OrientacionSexual
 class OrientacionSexualListCreateView(generics.ListCreateAPIView):
