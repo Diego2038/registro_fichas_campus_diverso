@@ -38,15 +38,18 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Persona
         id_persona = validated_data.pop('id_persona')
+        pronombres = validated_data.pop('pronombres', [])
+        
         persona = Persona.objects.get(numero_documento=id_persona) #! Así son más fáciles las consultas
         
         # Creación del objeto DiversidadSexual
         diversidad_sexual = DiversidadSexual.objects.create(id_persona=persona, **validated_data)
         
         # Pronombre
-        pronombres = validated_data.pop('pronombres', [])
         for pronombre in pronombres:
-            pronombres = Pronombre.objects.get_or_create(nombre_pronombre=pronombre)
+            pronombres, _ = Pronombre.objects.get_or_create(nombre_pronombre=pronombre)
             diversidad_sexual.pronombres.add(pronombres)
+            
+             
 
         return diversidad_sexual 

@@ -31,6 +31,10 @@ class DiversidadSexualRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAP
     serializer_class = DiversidadSexualSerializer
     lookup_field = 'id_persona'
     
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
+    
     def get_object(self):
         id_persona = self.kwargs['id_persona']
         persona = get_object_or_404(Persona, numero_documento=id_persona)
