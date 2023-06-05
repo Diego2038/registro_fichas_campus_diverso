@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero
+from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual
 from app_registro.models import Persona
 
+
+class OrientacionSexualSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrientacionSexual
+        fields = '__all__'
 
 class ExpresionGeneroSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,6 +26,17 @@ class PronombreSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Listing Fields de los serializers
+
+class OrientacionSexualListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.nombre_orientacion_sexual
+   
+    def to_internal_value(self, data):
+        if isinstance(data, str):
+            return data.strip()
+        elif isinstance(data, dict):
+            return data['nombre_orientacion_sexual'].strip()
+        raise serializers.ValidationError('Invalid input format.')
 
 class ExpresionGeneroListingField(serializers.RelatedField):
     def to_representation(self, value):
@@ -59,6 +75,13 @@ class PronombreListingField(serializers.RelatedField):
 class DiversidadSexualSerializer(serializers.ModelSerializer):
     id_persona = serializers.CharField(max_length=30, required=True)
     
+    orientaciones_sexuales = OrientacionSexualListingField(
+        many=True,
+        queryset= OrientacionSexual.objects.all(),
+        required=False,
+    )
+
+    
     expresiones_de_genero = ExpresionGeneroListingField(
         many=True,
         queryset=ExpresionGenero.objects.all(),
@@ -85,6 +108,7 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Extracción de campos de la petición JSON
         id_persona = validated_data.pop('id_persona')
+        orientaciones_sexuales = validated_data.pop('orientaciones_sexuales')
         expresiones_de_genero = validated_data.pop('expresiones_de_genero')
         pronombres = validated_data.pop('pronombres', [])
         identidades_de_genero = validated_data.pop('identidades_de_genero')
@@ -94,18 +118,24 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
         # Creación del objeto DiversidadSexual
         diversidad_sexual = DiversidadSexual.objects.create(id_persona=persona, **validated_data)
         
-        # Pronombre
-        for pronombre in pronombres:
-            pronombres, _ = Pronombre.objects.get_or_create(nombre_pronombre=pronombre)
-            diversidad_sexual.pronombres.add(pronombres)
+        # OrientacionSexual
+        for nombre_orientacion_sexual in orientaciones_sexuales:
+            orientacion_sexual, _ = OrientacionSexual.objects.get_or_create(nombre_orientacion_sexual=nombre_orientacion_sexual)
+            diversidad_sexual.orientaciones_sexuales.add(orientacion_sexual) 
+        
+       # ExpresionGenero
+        for nombre_expresion_genero in expresiones_de_genero:
+            expresion_genero, _ = ExpresionGenero.objects.get_or_create(nombre_expresion_genero=nombre_expresion_genero)
+            diversidad_sexual.expresiones_de_genero.add(expresion_genero) 
+        
         # IdentidadGenero
         for nombre_identidad_genero in identidades_de_genero:
             identidad_genero, _ = IdentidadGenero.objects.get_or_create(nombre_identidad_genero=nombre_identidad_genero)
             diversidad_sexual.identidades_de_genero.add(identidad_genero)
-        # ExpresionGenero
-        for nombre_expresion_genero in expresiones_de_genero:
-            expresion_genero, _ = ExpresionGenero.objects.get_or_create(nombre_expresion_genero=nombre_expresion_genero)
-            diversidad_sexual.expresiones_de_genero.add(expresion_genero)
-             
-
+            
+        # Pronombre
+        for pronombre in pronombres:
+            pronombres, _ = Pronombre.objects.get_or_create(nombre_pronombre=pronombre)
+            diversidad_sexual.pronombres.add(pronombres)
+        
         return diversidad_sexual 
