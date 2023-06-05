@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DiversidadSexualListCreateView, DiversidadSexualRetrieveUpdateDestroyView, PronombreListCreateView, PronombreRetrievelUpdateDestroyView, IdentidadGeneroListCreateView, IdentidadGeneroRetrievelUpdateDestroyView
+from .views import DiversidadSexualListCreateView, DiversidadSexualRetrieveUpdateDestroyView, PronombreListCreateView, PronombreRetrievelUpdateDestroyView, IdentidadGeneroListCreateView, IdentidadGeneroRetrievelUpdateDestroyView, ExpresionGeneroListCreateView, ExpresionGeneroRetrievelUpdateDestroyView
 
 urlpatterns = [
     path('diversidad-sexual/', DiversidadSexualListCreateView.as_view(), name='diversidad-sexual-list-create'),
@@ -8,4 +8,6 @@ urlpatterns = [
     path('pronombre/<str:pk>/', PronombreRetrievelUpdateDestroyView.as_view(),name='pronombre-retrieve-update-destroy'),
     path('identidad-genero/', IdentidadGeneroListCreateView.as_view(), name='identidad-genero-list-create'),
     path('identidad-genero/<str:pk>/', IdentidadGeneroRetrievelUpdateDestroyView.as_view(),name='identidad-genero-retrieve-update-destroy'),
+    path('expresion-genero/', ExpresionGeneroListCreateView.as_view(), name='expresion-genero-list-create'),
+    path('expresion-genero/<str:pk>/', ExpresionGeneroRetrievelUpdateDestroyView.as_view(),name='expresion-genero-retrieve-update-destroy'),
 ]

@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import DiversidadSexual, Pronombre, IdentidadGenero
+from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero
 from app_registro.models import Persona
 
+
+class ExpresionGeneroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpresionGenero
+        fields = '__all__'
 
 class IdentidadGeneroSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +19,19 @@ class PronombreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pronombre
         fields = '__all__'
+
+# Listing Fields de los serializers
+
+class ExpresionGeneroListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.nombre_expresion_genero
+   
+    def to_internal_value(self, data):
+        if isinstance(data, str):
+            return data.strip()
+        elif isinstance(data, dict):
+            return data['nombre_expresion_genero'].strip()
+        raise serializers.ValidationError('Invalid input format.')
 
 class IdentidadGeneroListingField(serializers.RelatedField):
     def to_representation(self, value):
@@ -41,6 +59,12 @@ class PronombreListingField(serializers.RelatedField):
 class DiversidadSexualSerializer(serializers.ModelSerializer):
     id_persona = serializers.CharField(max_length=30, required=True)
     
+    expresiones_de_genero = ExpresionGeneroListingField(
+        many=True,
+        queryset=ExpresionGenero.objects.all(),
+        required=False,
+    )
+    
     identidades_de_genero = IdentidadGeneroListingField(
         many=True,
         queryset=IdentidadGenero.objects.all(),
@@ -59,8 +83,9 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def create(self, validated_data):
-        # Persona
+        # Extracción de campos de la petición JSON
         id_persona = validated_data.pop('id_persona')
+        expresiones_de_genero = validated_data.pop('expresiones_de_genero')
         pronombres = validated_data.pop('pronombres', [])
         identidades_de_genero = validated_data.pop('identidades_de_genero')
         
@@ -77,6 +102,10 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
         for nombre_identidad_genero in identidades_de_genero:
             identidad_genero, _ = IdentidadGenero.objects.get_or_create(nombre_identidad_genero=nombre_identidad_genero)
             diversidad_sexual.identidades_de_genero.add(identidad_genero)
+        # ExpresionGenero
+        for nombre_expresion_genero in expresiones_de_genero:
+            expresion_genero, _ = ExpresionGenero.objects.get_or_create(nombre_expresion_genero=nombre_expresion_genero)
+            diversidad_sexual.expresiones_de_genero.add(expresion_genero)
              
 
         return diversidad_sexual 
