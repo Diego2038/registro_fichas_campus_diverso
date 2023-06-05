@@ -2,13 +2,22 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import generics
-from .models import DiversidadSexual, Pronombre
-from .serializers import DiversidadSexualSerializer,PronombreSerializer
+from .models import DiversidadSexual, Pronombre, IdentidadGenero
+from .serializers import DiversidadSexualSerializer,PronombreSerializer, IdentidadGeneroSerializer
 
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from app_registro.models import Persona 
+
+# IdentidadGenero
+class IdentidadGeneroListCreateView(generics.ListCreateAPIView):
+    queryset = IdentidadGenero.objects.all()
+    serializer_class = IdentidadGeneroSerializer
+    
+class IdentidadGeneroRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = IdentidadGenero.objects.all()
+    serializer_class = IdentidadGeneroSerializer
 
 # Pronombre
 class PronombreListCreateView(generics.ListCreateAPIView):
