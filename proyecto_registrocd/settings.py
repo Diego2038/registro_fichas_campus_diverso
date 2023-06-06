@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_registro', #! NOTA: Aquí estaría los campos de Datos Personales
     'app_diversidad_sexual',
+    'app_informacion_academica',
     'rest_framework',
     'django_extensions',
 ]
