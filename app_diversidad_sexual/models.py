@@ -37,3 +37,6 @@ class DiversidadSexual(models.Model):
 
     class Meta:
         db_table = "Diversidad_sexual"
+    
+    def __str__(self):
+        return f"DiversidadSexual {self.id_diversidad_sexual}"

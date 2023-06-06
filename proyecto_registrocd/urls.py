@@ -22,4 +22,5 @@ urlpatterns = [
     path('persona/', include('app_registro.urls')),
     path('diversidad-sexual/', include('app_diversidad_sexual.urls')),
     path('informacion-academica/', include('app_informacion_academica.urls')),
+    path('informacion-general/', include('app_informacion_general.urls')),
 ]

@@ -17,5 +17,11 @@ class InformacionAcademica(models.Model):
     semestre_academico = models.IntegerField()
     estamentos = models.ManyToManyField(Estamento, max_length=100)
     
+    class Meta:
+        db_table = "Informacion_academica"
+    
+    def __str__(self):
+        return f"InformacionAcademica: {self.id_informacion_academica}"
+    
     
   

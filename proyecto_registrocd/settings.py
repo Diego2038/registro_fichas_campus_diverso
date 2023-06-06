@@ -47,9 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_registro', #! NOTA: Aquí estaría los campos de Datos Personales
+    'app_registro', #! NOTA: Aquí están los campos de Datos Personales
     'app_diversidad_sexual',
     'app_informacion_academica',
+    'app_informacion_general',
     'rest_framework',
     'django_extensions',
 ]

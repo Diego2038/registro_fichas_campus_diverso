@@ -35,7 +35,7 @@ class Persona(models.Model):
     pertenencia_grupo_poblacional = models.ManyToManyField(PertenenciaGrupoPoblacional,max_length=300, related_name="personas", blank=False) 
     
     def __str__(self):
-        return self.numero_documento
+        return f"Persona ID: {self.id_persona}, número documento: {self.numero_documento}, nombre: {self.nombre_y_apellido}" #! TODO: Cambiarlo con la info de todos los campos después
 
     class Meta:
         db_table = "Persona"
