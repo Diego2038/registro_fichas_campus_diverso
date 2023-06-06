@@ -5,9 +5,19 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionAcademica
-from .serializers import InformacionAcademicaSerializer
+from .models import InformacionAcademica, Estamento
+from .serializers import InformacionAcademicaSerializer, EstamentoSerializer
 
+# Estamento
+class EstamentoListCreateView(generics.ListCreateAPIView):
+    queryset = Estamento.objects.all()
+    serializer_class = EstamentoSerializer
+    
+class EstamentoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Estamento.objects.all()
+    serializer_class = EstamentoSerializer
+
+# InformacionAcademica
 class InformacionAcademicaListCreateView(generics.ListCreateAPIView):
     queryset = InformacionAcademica.objects.all()
     serializer_class = InformacionAcademicaSerializer

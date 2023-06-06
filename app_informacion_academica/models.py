@@ -3,6 +3,10 @@ from app_registro.models import Persona
 
 # Create your models here.
 
+class Estamento(models.Model):
+    id_estamento = models.AutoField(primary_key=True)
+    nombre_estamento = models.CharField(max_length=100)
+
 class InformacionAcademica(models.Model):
     id_informacion_academica = models.AutoField(primary_key=True)
     id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False)
@@ -11,6 +15,7 @@ class InformacionAcademica(models.Model):
     nombre_programa_academico = models.CharField(max_length=100)
     codigo_estudiante = models.CharField(max_length=20, unique=True)
     semestre_academico = models.IntegerField()
+    estamentos = models.ManyToManyField(Estamento, max_length=100)
     
     
   
