@@ -5,9 +5,18 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral 
-from .serializers import InformacionGeneralSerializer
+from .models import InformacionGeneral, OcupacionActual
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer
 
+  
+# OcupacionActual
+class OcupacionActualListCreateView(generics.ListCreateAPIView):
+    queryset = OcupacionActual.objects.all()
+    serializer_class = OcupacionActualSerializer
+   
+class OcupacionActualRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OcupacionActual.objects.all()
+    serializer_class = OcupacionActualSerializer
   
 # InformacionGeneral
 class InformacionGeneralListCreateView(generics.ListCreateAPIView):

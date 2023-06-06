@@ -3,6 +3,14 @@ from django.db import models
 # Create your models here. 
 from app_registro.models import Persona
 
+
+
+
+class OcupacionActual(models.Model):
+    id_ocupacion_actual = models.AutoField(primary_key=True)
+    nombre_ocupacion_actual = models.CharField(max_length=200)
+    
+    
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
     id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False)
@@ -26,10 +34,44 @@ class InformacionGeneral(models.Model):
     encuentro_inicial = models.CharField(max_length=30)
     observacion_horario = models.TextField()
     origen_descubrimiento_campus_diverso = models.CharField(max_length=300)
-    comentarios_o_sugerencias_de_usuario = models.TextField() 
+    comentarios_o_sugerencias_de_usuario = models.TextField()
+    ocupaciones_actuales = models.ManyToManyField(OcupacionActual, max_length=200)  
 
     class Meta:
         db_table = "Informacion_general"
     
     def __str__(self):
         return f"InformacionGeneral {self.id_informacion_general}"
+   
+    
+# class ActividadTiempoLibre(models.Model):
+#     id_actividad_tiempo_libre = models.AutoField(primary_key=True)
+#     nombre_actividad_tiempo_libre = models.CharField(max_length=200)
+#     observacion_actividad_tiempo_libre = models.TextField(blank=True, null=True)
+#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
+    
+# class FuenteIngresos(models.Model):
+#     id_fuente_ingresos = models.AutoField(primary_key=True)
+#     nombre_fuente_ingresos = models.CharField(max_length=200)
+#     observacion_fuente_ingresos = models.TextField(blank=True, null=True)
+#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
+
+# class ConvivenciaVivienda(models.Model):
+#     id_convivencia_vivienda = models.AutoField(primary_key=True)
+#     nombre_convivencia_vivienda = models.CharField(max_length=200)
+#     observacion_convivencia_vivienda = models.TextField(blank=True, null=True)
+#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
+
+# class RedApoyo(models.Model):
+#     id_red_apoyo = models.AutoField(primary_key=True)
+#     nombre_red_apoyo = models.CharField(max_length=200)
+#     observacion_red_apoyo = models.TextField(blank=True, null=True)
+#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE) 
+    
+# class FactorRiesgo(models.Model):
+#     id_factor_riesgo = models.AutoField(primary_key=True)
+#     nombre_factor_riesgo = models.CharField(max_length=200)
+#     observacion_factor_riesgo = models.TextField(blank=True, null=True)
+    
+#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
+
