@@ -23,6 +23,14 @@ class PertenenciaGrupoPoblacionalListingField(serializers.RelatedField):
     
 
 class PersonaSerializer(serializers.ModelSerializer):
+    
+    ciudad_nacimiento = serializers.CharField(max_length=100, default="Ciudad no especificada", required=False)
+    municipio_nacimiento = serializers.CharField(max_length=100, default="Municipio no especificado", required=False)
+    corregimiento_nacimiento = serializers.CharField(max_length=100, default="Corregimiento no especificado", required=False)
+    ciudad_residencia = serializers.CharField(max_length=100, default="Ciudad no especificada", required=False)
+    municipio_residencia = serializers.CharField(max_length=100, default="Municipio no especificado", required=False)
+    corregimiento_residencia = serializers.CharField(max_length=100, default="Corregimiento no especificado", required=False)
+    
     pertenencia_grupo_poblacional = PertenenciaGrupoPoblacionalListingField(
         many=True, 
         queryset=PertenenciaGrupoPoblacional.objects.all(),

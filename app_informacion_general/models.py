@@ -26,8 +26,6 @@ class InformacionGeneral(models.Model):
     observacion_general_fuente_de_ingresos = models.TextField()
     observacion_general_relacion_familiar = models.TextField()
     relacion_familiar = models.IntegerField()
-    nombre_persona_confianza = models.TextField()
-    telefono_persona_confianza = models.TextField()
     observacion_general_redes_de_apoyo = models.TextField()
     observacion_general_factores_de_riesgo = models.TextField()
     creencia_religiosa = models.TextField()
