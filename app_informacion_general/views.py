@@ -5,8 +5,21 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer
+
+# ConvivenciaFamiliar
+class ConvivenciaViviendaListCreateView(generics.ListCreateAPIView):
+    queryset = ConvivenciaVivienda.objects.all()
+    serializer_class = ConvivenciaViviendaSerializer
+
+class ConvivenciaViviendaRetrievelUpdateDestroyView (generics.RetrieveUpdateDestroyAPIView):
+    queryset = ConvivenciaVivienda.objects.all()
+    serializer_class = ConvivenciaViviendaSerializer
+    
+    def get_serializer(self, *args, **kwargs): #! Para poder realizar las actualizaciones sin necesidad de todos los atributos
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
 
 # FuenteIngresos
 class FuenteIngresosListCreateView(generics.ListCreateAPIView):

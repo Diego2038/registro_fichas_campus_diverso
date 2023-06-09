@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda
 
  
 
@@ -16,10 +16,14 @@ class OcupacionActualSerializer(serializers.ModelSerializer):
         model = OcupacionActual
         fields = '__all__' 
 
-class ActividadTiempoLibreSerializer(serializers.ModelSerializer):
-    # id_informacion_general = serializers.DictField(required=False)
+class ActividadTiempoLibreSerializer(serializers.ModelSerializer): 
     class Meta:
         model = ActividadTiempoLibre
+        fields = "__all__"
+
+class ConvivenciaViviendaSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = ConvivenciaVivienda
         fields = "__all__"
 
 # ListingField
@@ -71,6 +75,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
     # )
     actividades_tiempo_libre = ActividadTiempoLibreSerializer(many=True)
     fuentes_de_ingresos = FuenteIngresosSerializer(many=True)
+    convivencias_en_vivienda = ConvivenciaViviendaSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -82,6 +87,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         ocupaciones_actuales = validated_data.pop('ocupaciones_actuales',[])
         actividades_tiempo_libre = validated_data.pop('actividades_tiempo_libre',[])
         fuentes_de_ingresos = validated_data.pop('fuentes_de_ingresos',[])
+        convivencias_en_vivienda = validated_data.pop('convivencias_en_vivienda',[])
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
@@ -99,5 +105,9 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         # FuenteIngresos
         for fuente_ingreso_data in fuentes_de_ingresos:
             FuenteIngresos.objects.create(id_informacion_general=informacion_general, **fuente_ingreso_data)
+            
+        # ConvivenciaFamiliar
+        for convivencia_vivienda_data in convivencias_en_vivienda:
+            ConvivenciaVivienda.objects.create(id_informacion_general=informacion_general, **convivencia_vivienda_data)
          
         return informacion_general

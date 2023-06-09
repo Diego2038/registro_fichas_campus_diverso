@@ -32,7 +32,25 @@ class FuenteIngresos(models.Model):
     nombre_fuente_ingresos = models.CharField(max_length=200)
     observacion_fuente_ingresos = models.TextField(blank=True, default="Sin Observación")
     id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name='fuentes_de_ingresos', blank=True)
+    
+    class Meta:
+        db_table = "Informacion_general_fuente_ingresos"
+    
+    def __str__(self):
+        return f"FuenteIngresos {self.id_fuente_ingresos}"
  
+ 
+class ConvivenciaVivienda(models.Model):
+    id_convivencia_vivienda = models.AutoField(primary_key=True)
+    nombre_convivencia_vivienda = models.CharField(max_length=200)
+    observacion_convivencia_vivienda = models.TextField(blank=True, default="Sin observacion")
+    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name='convivencias_en_vivienda', blank=True)
+    
+    class Meta:
+        db_table = "Informacion_general_convivencia_familiar"
+    
+    def __str__(self):
+        return f"ConvivenciaFamiliar {self.id_convivencia_vivienda}"
  
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
@@ -65,18 +83,6 @@ class InformacionGeneral(models.Model):
         return f"InformacionGeneral {self.id_informacion_general}"
    
     
-    
-# class FuenteIngresos(models.Model):
-#     id_fuente_ingresos = models.AutoField(primary_key=True)
-#     nombre_fuente_ingresos = models.CharField(max_length=200)
-#     observacion_fuente_ingresos = models.TextField(blank=True, null=True)
-#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
-
-# class ConvivenciaVivienda(models.Model):
-#     id_convivencia_vivienda = models.AutoField(primary_key=True)
-#     nombre_convivencia_vivienda = models.CharField(max_length=200)
-#     observacion_convivencia_vivienda = models.TextField(blank=True, null=True)
-#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
 
 # class RedApoyo(models.Model):
 #     id_red_apoyo = models.AutoField(primary_key=True)
