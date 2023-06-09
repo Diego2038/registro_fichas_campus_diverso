@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo
 
  
 
@@ -24,6 +24,11 @@ class ActividadTiempoLibreSerializer(serializers.ModelSerializer):
 class ConvivenciaViviendaSerializer(serializers.ModelSerializer): 
     class Meta:
         model = ConvivenciaVivienda
+        fields = "__all__"
+        
+class RedApoyoSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = RedApoyo
         fields = "__all__"
 
 # ListingField
@@ -68,14 +73,10 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         required=False,
     )
     
-    # actividades_tiempo_libre = ActividadTiempoLibreListingField(
-    #     many=True,
-    #     queryset=ActividadTiempoLibre,
-    #     required=False,
-    # )
     actividades_tiempo_libre = ActividadTiempoLibreSerializer(many=True)
     fuentes_de_ingresos = FuenteIngresosSerializer(many=True)
     convivencias_en_vivienda = ConvivenciaViviendaSerializer(many=True)
+    redes_de_apoyo = RedApoyoSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -88,6 +89,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         actividades_tiempo_libre = validated_data.pop('actividades_tiempo_libre',[])
         fuentes_de_ingresos = validated_data.pop('fuentes_de_ingresos',[])
         convivencias_en_vivienda = validated_data.pop('convivencias_en_vivienda',[])
+        redes_de_apoyo = validated_data.pop('redes_de_apoyo',[])
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
@@ -106,8 +108,12 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         for fuente_ingreso_data in fuentes_de_ingresos:
             FuenteIngresos.objects.create(id_informacion_general=informacion_general, **fuente_ingreso_data)
             
-        # ConvivenciaFamiliar
+        # ConvivenciaVivienda
         for convivencia_vivienda_data in convivencias_en_vivienda:
             ConvivenciaVivienda.objects.create(id_informacion_general=informacion_general, **convivencia_vivienda_data)
+        
+        # RedApoyo
+        for red_apoyo_data in redes_de_apoyo:
+            RedApoyo.objects.create(id_informacion_general=informacion_general, **red_apoyo_data)
          
         return informacion_general
