@@ -5,8 +5,21 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer
+
+# FuenteIngresos
+class FuenteIngresosListCreateView(generics.ListCreateAPIView):
+    queryset = FuenteIngresos.objects.all()
+    serializer_class = FuenteIngresosSerializer
+
+class FuenteIngresosRetrievelUpdateDestroyView (generics.RetrieveUpdateDestroyAPIView):
+    queryset = FuenteIngresos.objects.all()
+    serializer_class = FuenteIngresosSerializer
+    
+    def get_serializer(self, *args, **kwargs): #! Para poder realizar las actualizaciones sin necesidad de todos los atributos
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
 
 # ActividadTiempoLibre
 class ActividadTiempoLibreListCreateView(generics.ListCreateAPIView):
@@ -16,6 +29,10 @@ class ActividadTiempoLibreListCreateView(generics.ListCreateAPIView):
 class ActividadTiempoLibreRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ActividadTiempoLibre.objects.all()
     serializer_class = ActividadTiempoLibreSerializer 
+    
+    def get_serializer(self, *args, **kwargs): #! Para poder realizar las actualizaciones sin necesidad de todos los atributos
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
   
 # OcupacionActual
 class OcupacionActualListCreateView(generics.ListCreateAPIView):

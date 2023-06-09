@@ -1,10 +1,16 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos
 
  
 
 # Serializers 
+
+class FuenteIngresosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FuenteIngresos
+        fields = '__all__'
+
 class OcupacionActualSerializer(serializers.ModelSerializer):
     class Meta:
         model = OcupacionActual
@@ -64,6 +70,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
     #     required=False,
     # )
     actividades_tiempo_libre = ActividadTiempoLibreSerializer(many=True)
+    fuentes_de_ingresos = FuenteIngresosSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -74,6 +81,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         
         ocupaciones_actuales = validated_data.pop('ocupaciones_actuales',[])
         actividades_tiempo_libre = validated_data.pop('actividades_tiempo_libre',[])
+        fuentes_de_ingresos = validated_data.pop('fuentes_de_ingresos',[])
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
@@ -87,5 +95,9 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         # ActividadTiempoLibre    
         for actividad_tiempo_libre_data in actividades_tiempo_libre: 
             ActividadTiempoLibre.objects.create(id_informacion_general=informacion_general,**actividad_tiempo_libre_data)
+        
+        # FuenteIngresos
+        for fuente_ingreso_data in fuentes_de_ingresos:
+            FuenteIngresos.objects.create(id_informacion_general=informacion_general, **fuente_ingreso_data)
          
         return informacion_general

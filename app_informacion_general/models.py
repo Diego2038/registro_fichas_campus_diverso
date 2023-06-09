@@ -19,13 +19,19 @@ class ActividadTiempoLibre(models.Model):
     id_actividad_tiempo_libre = models.AutoField(primary_key=True)
     nombre_actividad_tiempo_libre = models.CharField(max_length=200)
     observacion_actividad_tiempo_libre = models.TextField(blank=True, null=False, default="Sin observación")
-    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name="actividades_tiempo_libre", blank=True, null=True)
+    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name="actividades_tiempo_libre", blank=True)
     
     class Meta:
         db_table = "Informacion_general_actividad_tiempo_libre"
     
     def __str__(self):
         return f"ActividadTiempoLibre {self.id_actividad_tiempo_libre}"
+
+class FuenteIngresos(models.Model):
+    id_fuente_ingresos = models.AutoField(primary_key=True)
+    nombre_fuente_ingresos = models.CharField(max_length=200)
+    observacion_fuente_ingresos = models.TextField(blank=True, default="Sin Observación")
+    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name='fuentes_de_ingresos', blank=True)
  
  
 class InformacionGeneral(models.Model):
