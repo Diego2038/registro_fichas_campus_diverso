@@ -47,10 +47,10 @@ class ConvivenciaVivienda(models.Model):
     id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name='convivencias_en_vivienda', blank=True)
     
     class Meta:
-        db_table = "Informacion_general_convivencia_familiar"
+        db_table = "Informacion_general_convivencia_vivienda"
     
     def __str__(self):
-        return f"ConvivenciaFamiliar {self.id_convivencia_vivienda}"
+        return f"ConvivenciaVivienda {self.id_convivencia_vivienda}"
  
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
