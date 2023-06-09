@@ -4,13 +4,18 @@ from django.db import models
 from app_registro.models import Persona
 
 
-
-
 class OcupacionActual(models.Model):
     id_ocupacion_actual = models.AutoField(primary_key=True)
     nombre_ocupacion_actual = models.CharField(max_length=200)
     
     
+class ActividadTiempoLibre(models.Model):
+    id_actividad_tiempo_libre = models.AutoField(primary_key=True)
+    nombre_actividad_tiempo_libre = models.CharField(max_length=200)
+    observacion_actividad_tiempo_libre = models.TextField(blank=True, null=False, default="Sin observación")
+    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name="actividades_tiempo_libre", blank=True, null=True)
+ 
+ 
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
     id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False)
@@ -33,7 +38,7 @@ class InformacionGeneral(models.Model):
     observacion_horario = models.TextField()
     origen_descubrimiento_campus_diverso = models.CharField(max_length=300)
     comentarios_o_sugerencias_de_usuario = models.TextField()
-    ocupaciones_actuales = models.ManyToManyField(OcupacionActual, max_length=200)  
+    ocupaciones_actuales = models.ManyToManyField(OcupacionActual, max_length=200, related_name="informaciones_generales") 
 
     class Meta:
         db_table = "Informacion_general"
@@ -42,11 +47,6 @@ class InformacionGeneral(models.Model):
         return f"InformacionGeneral {self.id_informacion_general}"
    
     
-# class ActividadTiempoLibre(models.Model):
-#     id_actividad_tiempo_libre = models.AutoField(primary_key=True)
-#     nombre_actividad_tiempo_libre = models.CharField(max_length=200)
-#     observacion_actividad_tiempo_libre = models.TextField(blank=True, null=True)
-#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
     
 # class FuenteIngresos(models.Model):
 #     id_fuente_ingresos = models.AutoField(primary_key=True)

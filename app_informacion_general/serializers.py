@@ -1,15 +1,22 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual 
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre
 
  
 
-
+# Serializers 
 class OcupacionActualSerializer(serializers.ModelSerializer):
     class Meta:
         model = OcupacionActual
         fields = '__all__' 
 
+class ActividadTiempoLibreSerializer(serializers.ModelSerializer):
+    # id_informacion_general = serializers.DictField(required=False)
+    class Meta:
+        model = ActividadTiempoLibre
+        fields = "__all__"
+
+# ListingField
 class OcupacionActualListingField(serializers.RelatedField):
     def to_representation(self, value):
         return value.nombre_ocupacion_actual
@@ -21,6 +28,26 @@ class OcupacionActualListingField(serializers.RelatedField):
             return data['nombre_ocupacion_actual'].strip()
         raise serializers.ValidationError('Invalid input format.')
 
+
+class ActividadTiempoLibreListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return {
+            'nombre_actividad_tiempo_libre': value.nombre_actividad_tiempo_libre,
+            'observacion_actividad_tiempo_libre': value.observacion_actividad_tiempo_libre
+        }
+
+    def to_internal_value(self, data):
+        if isinstance(data, dict):
+            nombre_actividad = data.get('nombre_actividad_tiempo_libre', '').strip()
+            observacion_actividad = data.get('observacion_actividad_tiempo_libre', '').strip()
+            return {
+                'nombre_actividad_tiempo_libre': nombre_actividad,
+                'observacion_actividad_tiempo_libre': observacion_actividad
+            }
+        raise serializers.ValidationError('Invalid input format.')
+
+
+# Serializer Informacion General
 class InformacionGeneralSerializer(serializers.ModelSerializer):
 
     id_persona = serializers.CharField(max_length=30, required=True) 
@@ -30,7 +57,13 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         queryset=OcupacionActual.objects.all(),
         required=False,
     )
-
+    
+    # actividades_tiempo_libre = ActividadTiempoLibreListingField(
+    #     many=True,
+    #     queryset=ActividadTiempoLibre,
+    #     required=False,
+    # )
+    actividades_tiempo_libre = ActividadTiempoLibreSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -40,14 +73,19 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         id_persona = validated_data.pop('id_persona',[])
         
         ocupaciones_actuales = validated_data.pop('ocupaciones_actuales',[])
+        actividades_tiempo_libre = validated_data.pop('actividades_tiempo_libre',[])
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
-        informacion_academica = InformacionGeneral.objects.create(id_persona=persona, **validated_data)
+        informacion_general = InformacionGeneral.objects.create(id_persona=persona, **validated_data)
         
          # OcupacionActual
         for nombre_ocupacion_actual in ocupaciones_actuales:
             ocupacion_actual, _ = OcupacionActual.objects.get_or_create(nombre_ocupacion_actual=nombre_ocupacion_actual)
-            informacion_academica.ocupaciones_actuales.add(ocupacion_actual) 
+            informacion_general.ocupaciones_actuales.add(ocupacion_actual)
          
-        return informacion_academica
+        # ActividadTiempoLibre    
+        for actividad_tiempo_libre_data in actividades_tiempo_libre: 
+            ActividadTiempoLibre.objects.create(id_informacion_general=informacion_general,**actividad_tiempo_libre_data)
+         
+        return informacion_general

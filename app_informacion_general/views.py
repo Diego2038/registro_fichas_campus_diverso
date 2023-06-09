@@ -5,9 +5,17 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer
 
+# ActividadTiempoLibre
+class ActividadTiempoLibreListCreateView(generics.ListCreateAPIView):
+    queryset = ActividadTiempoLibre.objects.all()
+    serializer_class = ActividadTiempoLibreSerializer
+   
+class ActividadTiempoLibreRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ActividadTiempoLibre.objects.all()
+    serializer_class = ActividadTiempoLibreSerializer 
   
 # OcupacionActual
 class OcupacionActualListCreateView(generics.ListCreateAPIView):
