@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo
 
  
 
@@ -29,6 +29,11 @@ class ConvivenciaViviendaSerializer(serializers.ModelSerializer):
 class RedApoyoSerializer(serializers.ModelSerializer): 
     class Meta:
         model = RedApoyo
+        fields = "__all__"
+        
+class FactorRiesgoSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = FactorRiesgo
         fields = "__all__"
 
 # ListingField
@@ -77,6 +82,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
     fuentes_de_ingresos = FuenteIngresosSerializer(many=True)
     convivencias_en_vivienda = ConvivenciaViviendaSerializer(many=True)
     redes_de_apoyo = RedApoyoSerializer(many=True)
+    factores_de_riesgo = FactorRiesgoSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -90,6 +96,8 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         fuentes_de_ingresos = validated_data.pop('fuentes_de_ingresos',[])
         convivencias_en_vivienda = validated_data.pop('convivencias_en_vivienda',[])
         redes_de_apoyo = validated_data.pop('redes_de_apoyo',[])
+        factores_de_riesgo = validated_data.pop('factores_de_riesgo',[])
+        
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
@@ -115,5 +123,9 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         # RedApoyo
         for red_apoyo_data in redes_de_apoyo:
             RedApoyo.objects.create(id_informacion_general=informacion_general, **red_apoyo_data)
+            
+        # FactorRiesgo
+        for factor_riesgo_data in factores_de_riesgo:
+            FactorRiesgo.objects.create(id_informacion_general=informacion_general, **factor_riesgo_data)
          
         return informacion_general

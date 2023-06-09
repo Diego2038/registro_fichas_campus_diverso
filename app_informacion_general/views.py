@@ -5,8 +5,24 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer, FactorRiesgoSerializer
+
+
+
+# FactorRiesgo
+class FactorRiesgoListCreateView(generics.ListCreateAPIView):
+    queryset = FactorRiesgo.objects.all()
+    serializer_class = FactorRiesgoSerializer
+
+class FactorRiesgoRetrievelUpdateDestroyView (generics.RetrieveUpdateDestroyAPIView):
+    queryset = FactorRiesgo.objects.all()
+    serializer_class = FactorRiesgoSerializer
+    
+    def get_serializer(self, *args, **kwargs): #! Para poder realizar las actualizaciones sin necesidad de todos los atributos
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
+
 
 # RedApoyo
 class RedApoyoListCreateView(generics.ListCreateAPIView):

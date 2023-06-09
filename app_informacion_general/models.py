@@ -63,6 +63,18 @@ class RedApoyo(models.Model):
     
     def __str__(self):
         return f"RedApoyo {self.id_convivencia_vivienda}"
+
+class FactorRiesgo(models.Model):
+    id_factor_riesgo = models.AutoField(primary_key=True)
+    nombre_factor_riesgo = models.CharField(max_length=200)
+    observacion_factor_riesgo = models.TextField(blank=True, default="Sin observacion")
+    id_informacion_general = models.ForeignKey('InformacionGeneral', on_delete=models.CASCADE, related_name='factores_de_riesgo', blank=True)
+    
+    class Meta:
+        db_table = "Informacion_general_factor_riesgo"
+    
+    def __str__(self):
+        return f"FactorRiesgo {self.id_convivencia_vivienda}"
  
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)

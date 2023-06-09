@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import InformacionGeneralListCreateView, InformacionGeneralRetrievelUpdateDestroyView, OcupacionActualListCreateView, OcupacionActualRetrievelUpdateDestroyView, ActividadTiempoLibreListCreateView, ActividadTiempoLibreRetrievelUpdateDestroyView, FuenteIngresosListCreateView, FuenteIngresosRetrievelUpdateDestroyView, ConvivenciaViviendaListCreateView, ConvivenciaViviendaRetrievelUpdateDestroyView, RedApoyoListCreateView, RedApoyoRetrievelUpdateDestroyView
+from .views import InformacionGeneralListCreateView, InformacionGeneralRetrievelUpdateDestroyView, OcupacionActualListCreateView, OcupacionActualRetrievelUpdateDestroyView, ActividadTiempoLibreListCreateView, ActividadTiempoLibreRetrievelUpdateDestroyView, FuenteIngresosListCreateView, FuenteIngresosRetrievelUpdateDestroyView, ConvivenciaViviendaListCreateView, ConvivenciaViviendaRetrievelUpdateDestroyView, RedApoyoListCreateView, RedApoyoRetrievelUpdateDestroyView, FactorRiesgoListCreateView, FactorRiesgoRetrievelUpdateDestroyView
 
 urlpatterns = [ 
     path("informacion-general/", InformacionGeneralListCreateView.as_view(), name='informacion-general-list-create-view'),
@@ -14,4 +14,6 @@ urlpatterns = [
     path('convivencia-vivienda/<str:pk>/', ConvivenciaViviendaRetrievelUpdateDestroyView.as_view(), name='convivencia-vivienda-retrievel-update-destroy-view'),
     path('red-apoyo/', RedApoyoListCreateView.as_view(), name='red-apoyo-retrievel-update-destroy-view'),
     path('red-apoyo/<str:pk>/', RedApoyoRetrievelUpdateDestroyView.as_view(), name='red-apoyo-retrievel-update-destroy-view'),
+    path('factor-riesgo/', FactorRiesgoListCreateView.as_view(), name='factor-riesgo-retrievel-update-destroy-view'),
+    path('factor-riesgo/<str:pk>/', FactorRiesgoRetrievelUpdateDestroyView.as_view(), name='factor-riesgo-retrievel-update-destroy-view'),
 ]
