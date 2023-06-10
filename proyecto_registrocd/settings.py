@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'app_informacion_academica',
     'app_informacion_general',
     'app_documentos_autorizacion',
+    'app_seguimiento',
     'rest_framework',
     'django_extensions',
 ]

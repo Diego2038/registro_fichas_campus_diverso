@@ -24,4 +24,5 @@ urlpatterns = [
     path('informacion-academica/', include('app_informacion_academica.urls')),
     path('informacion-general/', include('app_informacion_general.urls')),
     path('documentos-autorizacion/', include('app_documentos_autorizacion.urls')),
+    path('seguimiento/', include('app_seguimiento.urls')),
 ]
