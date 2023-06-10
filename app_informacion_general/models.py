@@ -90,7 +90,7 @@ class EncuentroDiaHora(models.Model):
  
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
-    id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False)
+    id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False, related_name="informacion_general")
     dedicacion_externa = models.CharField(max_length=100)
     tipo_acompanamiento_recibido = models.CharField(max_length=70)
     observacion_tipo_acompanamiento_recibido = models.TextField()

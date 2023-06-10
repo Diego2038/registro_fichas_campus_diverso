@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import Persona, PertenenciaGrupoPoblacional
 from app_diversidad_sexual.serializers import DiversidadSexualSerializer
 from app_diversidad_sexual.models import DiversidadSexual
+from app_diversidad_sexual.serializers import DiversidadSexualSerializer
+from app_documentos_autorizacion.serializers import DocumentosAutorizacionSerializer
+from app_informacion_academica.serializers import InformacionAcademicaSerializer
+from app_informacion_general.serializers import InformacionGeneralSerializer
+from app_seguimiento.serializers import SeguimientoSerializer
 
 class PertenenciaGrupoPoblacionalSerializer(serializers.ModelSerializer):
     nombre_grupo_poblacional = serializers.CharField(max_length=300, required=True)
@@ -24,6 +29,21 @@ class PertenenciaGrupoPoblacionalListingField(serializers.RelatedField):
 
 class PersonaSerializer(serializers.ModelSerializer):
     
+    # diversidad_sexual = serializers.SerializerMethodField()
+    # def get_diversidad_sexual(self, obj):
+    #     try:
+    #         diversidad_sexual_instance = DiversidadSexual.objects.get(id_persona_id=obj.id_persona)
+    #         serializer = DiversidadSexualSerializer(diversidad_sexual_instance)  
+    #         return serializer.data
+    #     except DiversidadSexual.DoesNotExist:
+    #         return []
+    
+    diversidad_sexual = DiversidadSexualSerializer(required=False)
+    informacion_academica = InformacionAcademicaSerializer(required=False)
+    informacion_general = InformacionGeneralSerializer(required=False)
+    documentos_autorizacion = DocumentosAutorizacionSerializer(required=False)
+    seguimientos = SeguimientoSerializer(many=True, required=False)
+    
     ciudad_nacimiento = serializers.CharField(max_length=100, default="Ciudad no especificada", required=False)
     municipio_nacimiento = serializers.CharField(max_length=100, default="Municipio no especificado", required=False)
     corregimiento_nacimiento = serializers.CharField(max_length=100, default="Corregimiento no especificado", required=False)
@@ -41,16 +61,6 @@ class PersonaSerializer(serializers.ModelSerializer):
     #     child=serializers.CharField(max_length=300),
     #     write_only=True #! Sin este campo aparecen errores
     # ) 
-   
-    diversidad_sexual = serializers.SerializerMethodField()
-    def get_diversidad_sexual(self, obj):
-        try:
-            diversidad_sexual_instance = DiversidadSexual.objects.get(id_persona_id=obj.id_persona)
-            serializer = DiversidadSexualSerializer(diversidad_sexual_instance)  
-            return serializer.data
-        except DiversidadSexual.DoesNotExist:
-            return []
-        
     
     class Meta:
         model = Persona

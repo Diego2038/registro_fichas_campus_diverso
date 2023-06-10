@@ -6,7 +6,7 @@ from app_registro.models import Persona
 
 class DocumentosAutorizacion(models.Model):
     id_documentos_autorizacion = models.AutoField(primary_key=True)
-    id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False)
+    id_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, null=False, blank=False, related_name="documentos_autorizacion")
     autorizacion_manejo_de_datos = models.BooleanField()
     firma_consentimiento_informado = models.BooleanField()
     firma_terapia_hormonal = models.BooleanField(null=True, blank=True)

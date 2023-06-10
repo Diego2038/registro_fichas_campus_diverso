@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import Seguimiento
-from app_registro.models import Persona
-from app_registro.serializers import PersonaSerializer
+from app_registro.models import Persona 
 
 class SeguimientoSerializer(serializers.ModelSerializer):
     id_persona = serializers.CharField(max_length=30, required=True)
