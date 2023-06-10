@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'app_diversidad_sexual',
     'app_informacion_academica',
     'app_informacion_general',
+    'app_documentos_autorizacion',
     'rest_framework',
     'django_extensions',
 ]
