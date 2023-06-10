@@ -5,9 +5,22 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer, FactorRiesgoSerializer
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer, FactorRiesgoSerializer, EncuentroDiaHoraSerializer
 
+
+# EncuentroDiaHora
+class EncuentroDiaHoraListCreateView(generics.ListCreateAPIView):
+    queryset = EncuentroDiaHora.objects.all()
+    serializer_class = EncuentroDiaHoraSerializer
+
+class EncuentroDiaHoraRetrievelUpdateDestroyView (generics.RetrieveUpdateDestroyAPIView):
+    queryset = EncuentroDiaHora.objects.all()
+    serializer_class = EncuentroDiaHoraSerializer
+    
+    def get_serializer(self, *args, **kwargs): #! Para poder realizar las actualizaciones sin necesidad de todos los atributos
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
 
 
 # FactorRiesgo

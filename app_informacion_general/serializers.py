@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo
+from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
 
  
 
@@ -35,6 +35,16 @@ class FactorRiesgoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FactorRiesgo
         fields = "__all__"
+
+class EncuentroDiaHoraSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = EncuentroDiaHora
+        fields = "__all__"
+
+class EncuentroDiaHoraGetSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = EncuentroDiaHora
+        exclude = ['id_informacion_general']
 
 # ListingField
 class OcupacionActualListingField(serializers.RelatedField):
@@ -83,6 +93,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
     convivencias_en_vivienda = ConvivenciaViviendaSerializer(many=True)
     redes_de_apoyo = RedApoyoSerializer(many=True)
     factores_de_riesgo = FactorRiesgoSerializer(many=True)
+    encuentro_dias_horas = EncuentroDiaHoraGetSerializer(many=True)
     
     class Meta:
         model = InformacionGeneral
@@ -97,7 +108,7 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         convivencias_en_vivienda = validated_data.pop('convivencias_en_vivienda',[])
         redes_de_apoyo = validated_data.pop('redes_de_apoyo',[])
         factores_de_riesgo = validated_data.pop('factores_de_riesgo',[])
-        
+        encuentro_dias_horas = validated_data.pop('encuentro_dias_horas',[])
         
         persona = Persona.objects.get(numero_documento=id_persona)
         
@@ -127,5 +138,15 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         # FactorRiesgo
         for factor_riesgo_data in factores_de_riesgo:
             FactorRiesgo.objects.create(id_informacion_general=informacion_general, **factor_riesgo_data)
+            
+        # EncuentroDiaHora
+        for encuentro_dia_hora_data in encuentro_dias_horas:
+            # EncuentroDiaHora.objects.create(id_informacion_general=informacion_general, **encuentro_dia_hora_data)
+            # encuentro_dia_hora = EncuentroDiaHora.objects.get_or_create(**encuentro_dia_hora_data)
+            # informacion_general.encuentro_dias_horas.add(encuentro_dia_hora)
+            encuentro_dia_hora = EncuentroDiaHora.objects.filter(**encuentro_dia_hora_data).first()
+            if not encuentro_dia_hora:
+                encuentro_dia_hora = EncuentroDiaHora.objects.create(**encuentro_dia_hora_data)
+            informacion_general.encuentro_dias_horas.add(encuentro_dia_hora)
          
         return informacion_general

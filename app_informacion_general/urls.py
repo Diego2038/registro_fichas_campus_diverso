@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import InformacionGeneralListCreateView, InformacionGeneralRetrievelUpdateDestroyView, OcupacionActualListCreateView, OcupacionActualRetrievelUpdateDestroyView, ActividadTiempoLibreListCreateView, ActividadTiempoLibreRetrievelUpdateDestroyView, FuenteIngresosListCreateView, FuenteIngresosRetrievelUpdateDestroyView, ConvivenciaViviendaListCreateView, ConvivenciaViviendaRetrievelUpdateDestroyView, RedApoyoListCreateView, RedApoyoRetrievelUpdateDestroyView, FactorRiesgoListCreateView, FactorRiesgoRetrievelUpdateDestroyView
+from .views import InformacionGeneralListCreateView, InformacionGeneralRetrievelUpdateDestroyView, OcupacionActualListCreateView, OcupacionActualRetrievelUpdateDestroyView, ActividadTiempoLibreListCreateView, ActividadTiempoLibreRetrievelUpdateDestroyView, FuenteIngresosListCreateView, FuenteIngresosRetrievelUpdateDestroyView, ConvivenciaViviendaListCreateView, ConvivenciaViviendaRetrievelUpdateDestroyView, RedApoyoListCreateView, RedApoyoRetrievelUpdateDestroyView, FactorRiesgoListCreateView, FactorRiesgoRetrievelUpdateDestroyView, EncuentroDiaHoraListCreateView, EncuentroDiaHoraRetrievelUpdateDestroyView
 
 urlpatterns = [ 
     path("informacion-general/", InformacionGeneralListCreateView.as_view(), name='informacion-general-list-create-view'),
@@ -16,4 +16,6 @@ urlpatterns = [
     path('red-apoyo/<str:pk>/', RedApoyoRetrievelUpdateDestroyView.as_view(), name='red-apoyo-retrievel-update-destroy-view'),
     path('factor-riesgo/', FactorRiesgoListCreateView.as_view(), name='factor-riesgo-retrievel-update-destroy-view'),
     path('factor-riesgo/<str:pk>/', FactorRiesgoRetrievelUpdateDestroyView.as_view(), name='factor-riesgo-retrievel-update-destroy-view'),
+    path('encuentro-dia-hora/', EncuentroDiaHoraListCreateView.as_view(), name='encuentro-dia-hora-retrievel-update-destroy-view'),
+    path('encuentro-dia-hora/<str:pk>/', EncuentroDiaHoraRetrievelUpdateDestroyView.as_view(), name='encuentro-dia-hora-retrievel-update-destroy-view'),
 ]

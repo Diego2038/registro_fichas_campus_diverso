@@ -62,7 +62,7 @@ class RedApoyo(models.Model):
         db_table = "Informacion_general_red_apoyo"
     
     def __str__(self):
-        return f"RedApoyo {self.id_convivencia_vivienda}"
+        return f"RedApoyo {self.id_red_apoyo}"
 
 class FactorRiesgo(models.Model):
     id_factor_riesgo = models.AutoField(primary_key=True)
@@ -74,7 +74,19 @@ class FactorRiesgo(models.Model):
         db_table = "Informacion_general_factor_riesgo"
     
     def __str__(self):
-        return f"FactorRiesgo {self.id_convivencia_vivienda}"
+        return f"FactorRiesgo {self.id_factor_riesgo}"
+
+class EncuentroDiaHora(models.Model):
+    id_encuentro_dia_hora = models.AutoField(primary_key=True)  
+    dia = models.CharField(max_length=20)
+    hora = models.TimeField() 
+    id_informacion_general = models.ManyToManyField('InformacionGeneral', related_name='encuentro_dias_horas', blank=True)
+    
+    class Meta:
+        db_table = "Informacion_general_encuentro_dia_hora"
+    
+    def __str__(self):
+        return f"EncuentroDiaHora {self.id_convivencia_vivienda}"
  
 class InformacionGeneral(models.Model):
     id_informacion_general = models.AutoField(primary_key=True)
@@ -95,10 +107,11 @@ class InformacionGeneral(models.Model):
     observacion_general_factores_de_riesgo = models.TextField()
     creencia_religiosa = models.TextField()
     encuentro_inicial = models.CharField(max_length=30)
-    observacion_horario = models.TextField()
+    observacion_horario = models.TextField(blank=False, default="Sin observación")
     origen_descubrimiento_campus_diverso = models.CharField(max_length=300)
     comentarios_o_sugerencias_de_usuario = models.TextField()
     ocupaciones_actuales = models.ManyToManyField(OcupacionActual, max_length=200, related_name="informaciones_generales") 
+    # encuentros_dias_horas = models.ManyToManyField(EncuentroDiaHora, related_name="informacion_general_id")
 
     class Meta:
         db_table = "Informacion_general"
@@ -106,14 +119,3 @@ class InformacionGeneral(models.Model):
     def __str__(self):
         return f"InformacionGeneral {self.id_informacion_general}"
    
-    
-
-
-    
-# class FactorRiesgo(models.Model):
-#     id_factor_riesgo = models.AutoField(primary_key=True)
-#     nombre_factor_riesgo = models.CharField(max_length=200)
-#     observacion_factor_riesgo = models.TextField(blank=True, null=True)
-    
-#     id_informacion_general = models.ForeignKey(InformacionGeneral, on_delete=models.CASCADE)
-
