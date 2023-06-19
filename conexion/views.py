@@ -3,7 +3,7 @@ from app_registro.models import Persona, PertenenciaGrupoPoblacional
 import gspread
 from google.oauth2 import service_account
 from django.shortcuts import render
-
+from datetime import datetime
 
 def importar_desde_google_sheets(request):
     # Configuración de autenticación para gspread
@@ -23,33 +23,37 @@ def importar_desde_google_sheets(request):
 
        # Crear instancias del modelo Persona y guardarlas en la base de datos
     for row in data:
-        persona = Persona(
-            # incluir_correo_en_respuesta=row['incluir_correo_en_respuesta'],
-            nombre_identitario=row['Nombre identitario'],
-            nombre_y_apellido=row['First name'] + ' ' + row['Last name'],
-            # tipo_documento=row['tipo_documento'],
-            # numero_documento=row['numero_documento'],
-             fecha_nacimiento=row['Fecha de nacimiento'],
-            # estrato_socioeconomico=row['estrato_socioeconomico'],
-            # ciudad_nacimiento=row['ciudad_nacimiento'],
-            # municipio_nacimiento=row['municipio_nacimiento'],
-            # corregimiento_nacimiento=row['corregimiento_nacimiento'],
-            # departamento_nacimiento=row['departamento_nacimiento'],
-            # pais_nacimiento=row['pais_nacimiento'],
-            # ciudad_residencia=row['ciudad_residencia'],
-            # municipio_residencia=row['municipio_residencia'],
-            # corregimiento_residencia=row['corregimiento_residencia'],
-            # zona_residencial=row['zona_residencial'],
-            # direccion_residencia=row['direccion_residencia'],
-            # barrio_residencia=row['barrio_residencia'],
-            # comuna_barrio=row['comuna_barrio'],
-            # telefono=row['telefono'],
-            # estado_civil=row['estado_civil'],
-            # identidad_etnico_racial=row['identidad_etnico_racial'],
-            # nombre_persona_de_confianza=row['nombre_persona_de_confianza'],
-            # relacion_persona_de_confianza=row['relacion_persona_de_confianza'],
-            # telefono_persona_de_confianza=row['telefono_persona_de_confianza'],
-        )
-        persona.save()
-
-    return render(request, 'importacion_exitosa.html')
+        fecha_nacimiento=row['Fecha de nacimiento']
+        try:
+            fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%d/%m/%Y").date()
+            persona = Persona(
+                # incluir_correo_en_respuesta=row['incluir_correo_en_respuesta'],
+                nombre_identitario=row['Nombre identitario'],
+                nombre_y_apellido=row['First name'] + ' ' + row['Last name'],
+                 tipo_documento=row['Tipo de identificación'],
+                 numero_documento=row['Número de identificación'],
+                fecha_nacimiento=fecha_nacimiento,
+                 estrato_socioeconomico=row['Estrato socioeconómico'],
+                 ciudad_nacimiento=row['Ciudad de nacimiento'],
+                 municipio_nacimiento=row['Ciudad de nacimiento'],
+                 corregimiento_nacimiento=row['Ciudad de nacimiento'],
+                 departamento_nacimiento=row['Departamento de nacimiento'],
+                 pais_nacimiento=row['País de nacimiento'],
+                 ciudad_residencia=row['Ciudad o municipio de residencia'],
+                 municipio_residencia=row['Ciudad o municipio de residencia'],
+                 corregimiento_residencia=row['Barrio de la residencia'],
+                 zona_residencial=row['Zona de residencia'],
+                 direccion_residencia=row['Address'],
+                 barrio_residencia=row['Barrio de la residencia'],
+                 comuna_barrio=row['Address'],
+                 telefono=row['Phone number'],
+                 estado_civil=row['Estado civil'],
+                 identidad_etnico_racial=row['Identidad Étnico-racial'],
+                 nombre_persona_de_confianza=row['Personas con las que vive'],
+                 relacion_persona_de_confianza=row['Personas con las que vive'],
+                 telefono_persona_de_confianza=row['Número de contacto de la persona de confianza para contactar'],
+            )
+            persona.save()
+        except ValueError: 
+            pass
+    return print('Exitoso')
