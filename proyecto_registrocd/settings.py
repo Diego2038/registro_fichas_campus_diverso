@@ -91,16 +91,22 @@ WSGI_APPLICATION = 'proyecto_registrocd.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': variable_name_database,
-        'USER': variable_user,
-        'PASSWORD': variable_password,
-        'HOST': variable_host,
-        'PORT': variable_port,
+        'NAME': 'campus',
+        'USER': 'postgres',
+        'PASSWORD': 'danilo',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
+
+##Credenciales de la base de datos
+GOOGLE_SHEETS_CREDENTIALS_FILE = 'credentials.json'
 
 
 # Password validation

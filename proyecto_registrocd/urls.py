@@ -15,7 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include 
+from django.urls import path, include
+from conexion.views import importar_desde_google_sheets 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('informacion-general/', include('app_informacion_general.urls')),
     path('documentos-autorizacion/', include('app_documentos_autorizacion.urls')),
     path('seguimiento/', include('app_seguimiento.urls')),
+    path('importar/', importar_desde_google_sheets, name='importar_sheets'),
 ]
