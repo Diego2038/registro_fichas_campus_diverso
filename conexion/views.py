@@ -5,7 +5,7 @@ from django.shortcuts import render
 from datetime import datetime as dt
 from django.db import IntegrityError
 from django.http import HttpResponse
-from conexion.extraer import persona, diversidadSexual
+from conexion.extraer import persona, diversidadSexual, infoAcademica, DocumentoAutorizacion, infoGeneral
 
 def importar_desde_google_sheets(request):
     scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -21,7 +21,9 @@ def importar_desde_google_sheets(request):
     ##Hace la conexion con el modelo de persona
     persona(data)
     diversidadSexual(data)
-    #infoGeneral(data)
+    DocumentoAutorizacion(data)
+    infoAcademica(data)
+    infoGeneral(data)
 
 
     return HttpResponse('Exitoso')

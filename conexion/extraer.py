@@ -2,6 +2,9 @@
 from app_registro.models import Persona, PertenenciaGrupoPoblacional
 from app_diversidad_sexual.models import *
 from app_informacion_general.models import *
+from app_informacion_academica.models import *
+from app_documentos_autorizacion.models import *
+from app_informacion_general.models import *
 import gspread
 from google.oauth2 import service_account
 from django.shortcuts import render
@@ -63,9 +66,9 @@ def persona(data):
 def diversidadSexual(data):
     for row in data:
         numero_documento = row['Número de identificación']
-        persona = Persona.objects.filter(numero_documento=numero_documento).first()
+        persona = Persona.objects.filter(numero_documento=numero_documento).exists()
 
-        if persona:
+        if not persona:
             diversidad_sexual = DiversidadSexual.objects.create(
                 id_persona=persona,
                 cambio_nombre_sexo_documento=row['¿Ha realizado cambio de nombre y/o del componente sexo en el documento de identidad?'],
@@ -103,46 +106,91 @@ def diversidadSexual(data):
                 diversidad_sexual.respuestas_cambio_documento.add(respuesta_cambio_documento)
 """
 def infoGeneral(data):
+
+    for row in data:
+        numero_documento = row['Número de identificación']
+        persona = Persona.objects.filter(numero_documento=numero_documento).exists()
+        if persona:
+            persona = Persona.objects.get(numero_documento=numero_documento)
+            informacion_general = InformacionGeneral (
+            id_persona=persona,
+            dedicacion_externa = row['Si no es estudiante, ¿A qué se dedica?'],
+            tipo_acompanamiento_recibido = row['¿A recibido acompañamiento en los últimos 3 meses?'],
+            observacion_tipo_acompanamiento_recibido = row['Observación del acompañamiento'],
+            tipo_entidad_acompanamiento_recibido = row['Entidad que brindó el acompañamiento'],
+            tipo_profesional_acompanamiento_recibido = row['Profesional que le brindó la atención'],
+            calificacion_acompanamiento_recibido = row['Calificación de la atención brindada'],
+            motivo_calificacion_acompanamiento = row['Motivo de la calificación'],
+            actividades_especificas_tiempo_libre = row['Tipos de actividades que se realizan durante el tiempo libre'],
+            observacion_general_actividades_especificas_tiempo_libre = row['Observación general de las actividades'],
+            observacion_general_fuente_de_ingresos = row['Observación general de las fuentes de ingresos'],
+            observacion_general_relacion_familiar = row['Observación general de la relación familiar'],
+            relacion_familiar = row['Calificación de la relación familiar'],
+            observacion_general_redes_de_apoyo = row['Observación general de las redes de apoyo'],
+            observacion_general_factores_de_riesgo = row['Factores de riesgo que podría poner en riesgo a la persona'],
+            creencia_religiosa = row['Creencia religiosa'],
+            encuentro_inicial = row['*Día de elección *']+ ' ' + row['*Horario de elección *'],
+            observacion_horario = row['Observación general del horario de elección'],
+            origen_descubrimiento_campus_diverso = row['Comentarios o sugerencias'],
+            comentarios_o_sugerencias_de_usuario = row['Comentarios o sugerencias'],
+        )
+        try:
+            informacion_general.save()
+            # Obtener o crear el objeto PertenenciaGrupoPoblacional
+            ocupaciones_actuales = row['Ocupación actual']
+            ocupacion, _ = ocupaciones_actuales.objects.get_or_create(
+                ocupaciones_actuales=ocupaciones_actuales)
+            # Establecer la relación de muchos a muchos
+            informacion_general.ocupaciones_actuales.set([ocupacion])
+        except IntegrityError:
+                pass
+"""
+
+
+def infoGeneral(data):
     for row in data:
         numero_documento = row['Número de identificación']
         persona = Persona.objects.filter(numero_documento=numero_documento).exists()
 
         if persona:
             #info_general = InfoGeneral.objects.create(
-            dedicacion_externa = row['Si no es estudiante, ¿A qué se dedica?']
-            tipo_acompanamiento_recibido = row['¿A recibido acompañamiento en los últimos 3 meses?']
-            observacion_tipo_acompanamiento_recibido = row['Observación del acompañamiento']
-            tipo_entidad_acompanamiento_recibido = row['Entidad que brindó el acompañamiento']
-            tipo_profesional_acompanamiento_recibido = row['Profesional que le brindó la atención']
-            calificacion_acompanamiento_recibido = row['Calificación de la atención brindada']
-            motivo_calificacion_acompanamiento = row['Motivo de la calificación']
-            actividades_especificas_tiempo_libre = row['Tipos de actividades que se realizan durante el tiempo libre']
-            observacion_general_actividades_especificas_tiempo_libre = row['Observación general de las actividades']
-            observacion_general_fuente_de_ingresos = row['Observación general de las fuentes de ingresos']
-            observacion_general_relacion_familiar = row['Observación general de la relación familiar']
-            relacion_familiar = row['Calificación de la relación familiar']
-            observacion_general_redes_de_apoyo = row['Observación general de las redes de apoyo']
-            observacion_general_factores_de_riesgo = row['Factores de riesgo que podría poner en riesgo a la persona']
-            creencia_religiosa = row['Creencia religiosa']
-            encuentro_inicial = row['*Día de elección *']+ ' ' + row['*Horario de elección *']
-            observacion_horario = row['Observación general del horario de elección']
-            origen_descubrimiento_campus_diverso = row['Comentarios o sugerencias']
+            dedicacion_externa = row['Si no es estudiante, ¿A qué se dedica?'],
+            tipo_acompanamiento_recibido = row['¿A recibido acompañamiento en los últimos 3 meses?'],
+            observacion_tipo_acompanamiento_recibido = row['Observación del acompañamiento'],
+            tipo_entidad_acompanamiento_recibido = row['Entidad que brindó el acompañamiento'],
+            tipo_profesional_acompanamiento_recibido = row['Profesional que le brindó la atención'],
+            calificacion_acompanamiento_recibido = row['Calificación de la atención brindada'],
+            motivo_calificacion_acompanamiento = row['Motivo de la calificación'],
+            actividades_especificas_tiempo_libre = row['Tipos de actividades que se realizan durante el tiempo libre'],
+            observacion_general_actividades_especificas_tiempo_libre = row['Observación general de las actividades'],
+            observacion_general_fuente_de_ingresos = row['Observación general de las fuentes de ingresos'],
+            observacion_general_relacion_familiar = row['Observación general de la relación familiar'],
+            relacion_familiar = row['Calificación de la relación familiar'],
+            observacion_general_redes_de_apoyo = row['Observación general de las redes de apoyo'],
+            observacion_general_factores_de_riesgo = row['Factores de riesgo que podría poner en riesgo a la persona'],
+            creencia_religiosa = row['Creencia religiosa'],
+            encuentro_inicial = row['*Día de elección *']+ ' ' + row['*Horario de elección *'],
+            observacion_horario = row['Observación general del horario de elección'],
+            origen_descubrimiento_campus_diverso = row['Comentarios o sugerencias'],
             comentarios_o_sugerencias_de_usuario = row['Comentarios o sugerencias']
 
+            persona = Persona.objects.get(numero_documento=numero_documento)
             informacion_general = InformacionGeneral.objects.create(
+                #numero_documento = row['Número de identificación'],
                 id_persona=persona,
+                #id_persona=persona,
                 dedicacion_externa=dedicacion_externa,
                 tipo_acompanamiento_recibido=tipo_acompanamiento_recibido,
                 observacion_tipo_acompanamiento_recibido=observacion_tipo_acompanamiento_recibido,
                 tipo_entidad_acompanamiento_recibido=tipo_entidad_acompanamiento_recibido,
                 tipo_profesional_acompanamiento_recibido=tipo_profesional_acompanamiento_recibido,
-                calificacion_acompanamiento_recibido=calificacion_acompanamiento_recibido,
+                calificacion_acompanamiento_recibido=4,
                 motivo_calificacion_acompanamiento=motivo_calificacion_acompanamiento,
                 actividades_especificas_tiempo_libre=actividades_especificas_tiempo_libre,
                 observacion_general_actividades_especificas_tiempo_libre=observacion_general_actividades_especificas_tiempo_libre,
                 observacion_general_fuente_de_ingresos=observacion_general_fuente_de_ingresos,
                 observacion_general_relacion_familiar=observacion_general_relacion_familiar,
-                relacion_familiar=relacion_familiar,
+                relacion_familiar=5,
                 observacion_general_redes_de_apoyo=observacion_general_redes_de_apoyo,
                 observacion_general_factores_de_riesgo=observacion_general_factores_de_riesgo,
                 creencia_religiosa=creencia_religiosa,
@@ -217,21 +265,53 @@ def infoGeneral(data):
                     )
 
             # Encuentros día-hora
-            encuentros_dias_horas = row['*Día de elección *']+ ' ' + row['*Horario de elección *']
-            if encuentros_dias_horas:
-                encuentros_dias_horas = encuentros_dias_horas.split(',')
-                for encuentro_dia_hora in encuentros_dias_horas:
-                    encuentro_dia_hora = encuentro_dia_hora.strip()
-                    if '-' in encuentro_dia_hora:
-                        dia, hora = encuentro_dia_hora.split('-')
-                        encuentro = EncuentroDiaHora.objects.create(
-                            dia=dia,
-                            hora=hora
-            )
-                    informacion_general.encuentro_dias_horas.add(encuentro)
 
             informacion_general.save()
 
         else:
             print(f"No se encontró ninguna persona con el número de documento {numero_documento}")
-"""
+
+def infoAcademica(data):
+    for row in data:
+        numero_documento = row['Número de identificación']
+        persona = Persona.objects.filter(numero_documento=numero_documento).exists()
+
+        if persona:
+            persona = Persona.objects.get(numero_documento=numero_documento) 
+            ##quiero obtener el id de la persona de la base de datos, como hago para obtenerlo?
+            #Re
+
+            info_academica = InformacionAcademica.objects.create(
+                id_persona=persona,
+                #cambio_nombre_sexo_documento=row['¿Ha realizado cambio de nombre y/o del componente sexo en el documento de identidad?'],
+                pertenencia_univalle=True,
+                sede_universidad=row['Sede a la que pertenece'],
+                nombre_programa_academico=row['Nombre del programa académico'],
+                codigo_estudiante=row['Código de estudiante'],
+                semestre_academico=row['Número del semestre que esta cursando'],
+            )
+
+            # Relación de muchos a muchos con Estamentos
+            # Relación de muchos a muchos con Estamentos
+            estamentos = row['Estamento al que pertenece la persona'].split(',')
+            for estamento in estamentos:
+                estamento, _ = Estamento.objects.get_or_create(nombre_estamento=estamento.strip())
+                info_academica.estamentos.add(estamento.id_estamento)
+
+def DocumentoAutorizacion(data):
+    for row in data:
+        numero_documento = row['Número de identificación']
+        persona = Persona.objects.filter(numero_documento=numero_documento).exists()
+
+        if persona:
+            persona = Persona.objects.get(numero_documento=numero_documento)
+            DocumentosAutorizacion.objects.create(
+                id_persona=persona,
+                autorizacion_manejo_de_datos= True,
+                firma_consentimiento_informado= True,
+                firma_terapia_hormonal= False,
+                documento_digital_y_archivo= True,
+                apgar_familiar= 9,
+                ecomapa= False,
+                arbol_familiar= True,  
+            )
