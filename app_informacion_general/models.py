@@ -106,7 +106,7 @@ class InformacionGeneral(models.Model):
     observacion_general_redes_de_apoyo = models.TextField()
     observacion_general_factores_de_riesgo = models.TextField()
     creencia_religiosa = models.TextField()
-    encuentro_inicial = models.CharField(max_length=30)
+    encuentro_inicial = models.CharField(max_length=100)
     observacion_horario = models.TextField(blank=False, default="Sin observación")
     origen_descubrimiento_campus_diverso = models.CharField(max_length=300)
     comentarios_o_sugerencias_de_usuario = models.TextField()
