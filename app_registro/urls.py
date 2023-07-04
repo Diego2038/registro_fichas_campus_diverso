@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PersonaListCreateView, PersonaRetrieveUpdateDestroyView, PertenenciaGrupoPoblacionalListCreateView, PertenenciaGrupoPoblacionalRetrieveUpdateDestroyView
-
+#! This file is'nt used in the code
 urlpatterns = [
     path('persona/', PersonaListCreateView.as_view(), name='persona-list-create'),
     path('persona/<str:numero_documento>/', PersonaRetrieveUpdateDestroyView.as_view(), name='persona-retrieve-update-destroy'),
