@@ -1,4 +1,4 @@
-from django.urls import path
+""" from django.urls import path
 from .views import DiversidadSexualListCreateView, DiversidadSexualRetrieveUpdateDestroyView, PronombreListCreateView, PronombreRetrievelUpdateDestroyView, IdentidadGeneroListCreateView, IdentidadGeneroRetrievelUpdateDestroyView, ExpresionGeneroListCreateView, ExpresionGeneroRetrievelUpdateDestroyView, OrientacionSexualListCreateView, OrientacionSexualRetrievelUpdateDestroyView, RespuestaCambioDocumentoListCreateView, RespuestaCambioDocumentoRetrievelUpdateDestroyView
 
 urlpatterns = [
@@ -14,4 +14,4 @@ urlpatterns = [
     path('orientacion-sexual/<str:pk>/', OrientacionSexualRetrievelUpdateDestroyView.as_view(),name='orientacion-sexual-retrieve-update-destroy'),
     path('respuesta-cambio-documento/', RespuestaCambioDocumentoListCreateView.as_view(), name='respuesta-cambio-documento-list-create'),
     path('respuesta-cambio-documento/<str:pk>/', RespuestaCambioDocumentoRetrievelUpdateDestroyView.as_view(),name='respuesta-cambio-documento-retrieve-update-destroy'),
-]
+] """
