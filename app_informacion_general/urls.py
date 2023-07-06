@@ -1,4 +1,4 @@
-from django.urls import path 
+""" from django.urls import path 
 from .views import InformacionGeneralListCreateView, InformacionGeneralRetrievelUpdateDestroyView, OcupacionActualListCreateView, OcupacionActualRetrievelUpdateDestroyView, ActividadTiempoLibreListCreateView, ActividadTiempoLibreRetrievelUpdateDestroyView, FuenteIngresosListCreateView, FuenteIngresosRetrievelUpdateDestroyView, ConvivenciaViviendaListCreateView, ConvivenciaViviendaRetrievelUpdateDestroyView, RedApoyoListCreateView, RedApoyoRetrievelUpdateDestroyView, FactorRiesgoListCreateView, FactorRiesgoRetrievelUpdateDestroyView, EncuentroDiaHoraListCreateView, EncuentroDiaHoraRetrievelUpdateDestroyView
 
 urlpatterns = [ 
@@ -18,4 +18,4 @@ urlpatterns = [
     path('factor-riesgo/<str:pk>/', FactorRiesgoRetrievelUpdateDestroyView.as_view(), name='factor-riesgo-retrievel-update-destroy-view'),
     path('encuentro-dia-hora/', EncuentroDiaHoraListCreateView.as_view(), name='encuentro-dia-hora-retrievel-update-destroy-view'),
     path('encuentro-dia-hora/<str:pk>/', EncuentroDiaHoraRetrievelUpdateDestroyView.as_view(), name='encuentro-dia-hora-retrievel-update-destroy-view'),
-]
+] """

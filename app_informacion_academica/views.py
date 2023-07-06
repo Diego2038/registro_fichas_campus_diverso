@@ -18,7 +18,7 @@ class EstamentoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Estamento.objects.all()
     serializer_class = EstamentoSerializer """
     
-class estamento_viewset(viewsets.ModelViewSet):
+class estamento_viewsets(viewsets.ModelViewSet):
     serializer_class = EstamentoSerializer
     # permission_classes = (IsAuthenticated,)
     queryset = EstamentoSerializer.Meta.model.objects.all()
@@ -56,7 +56,7 @@ class InformacionAcademicaRetrievelUpdateDestroyView(generics.RetrieveUpdateDest
         self.perform_destroy(informacion_academica)
         return Response(status.HTTP_204_NO_CONTENT) """
 
-class informacion_academica_viewset(viewsets.ModelViewSet):
+class informacion_academica_viewsets(viewsets.ModelViewSet):
     serializer_class = InformacionAcademicaSerializer
     # permission_classes = (IsAuthenticated,)
     queryset = InformacionAcademicaSerializer.Meta.model.objects.all()
