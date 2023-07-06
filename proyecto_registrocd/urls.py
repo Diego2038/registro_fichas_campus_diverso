@@ -22,7 +22,7 @@ urlpatterns = [
     # path('persona/', include('app_registro.urls')),
     path('persona/', include('app_registro.routers')),
     path('diversidad-sexual/', include('app_diversidad_sexual.routers')),
-    path('informacion-academica/', include('app_informacion_academica.urls')),
+    path('informacion-academica/', include('app_informacion_academica.routers')),
     path('informacion-general/', include('app_informacion_general.urls')),
     path('documentos-autorizacion/', include('app_documentos_autorizacion.urls')),
     path('seguimiento/', include('app_seguimiento.urls')),
