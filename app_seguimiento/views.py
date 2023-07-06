@@ -6,8 +6,9 @@ from .models import Seguimiento
 from .serializers import SeguimientoSerializer
 from app_registro.models import Persona
 from rest_framework.response import Response
+from rest_framework import viewsets
 
-class SeguimientoListCreateView(generics.ListCreateAPIView):
+""" class SeguimientoListCreateView(generics.ListCreateAPIView):
     queryset = Seguimiento.objects.all()
     serializer_class = SeguimientoSerializer
     
@@ -26,6 +27,19 @@ class SeguimientoRetrievelUpdateDestroyView(generics.RetrieveUpdateDestroyAPIVie
     #     if seguimientos.exists():
     #         return seguimientos
     #     else:
-    #         raise status.HTTP_404_NOT_FOUND
-      
+    #         raise status.HTTP_404_NOT_FOUND  """
+    
+class seguimiento_viewsets(viewsets.ModelViewSet):
+    serializer_class = SeguimientoSerializer
+    # permission_classes = (IsAuthenticated,)
+    queryset = SeguimientoSerializer.Meta.model.objects.all()
+    
+    def update(self, request, *args, pk=None, **kwargs): 
+        segumiento = get_object_or_404(Seguimiento, id_seguimiento=pk)
+        serializer = self.get_serializer(segumiento, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            self.perform_update(serializer)
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
      
