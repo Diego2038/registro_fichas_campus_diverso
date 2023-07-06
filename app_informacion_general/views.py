@@ -225,14 +225,10 @@ class informacion_general_viewsets (viewsets.ModelViewSet):
         kwargs['partial'] = True
         return super().partial_update(request, *args, **kwargs)
     
-    def retrieve(self, request, id_persona=None ):
-        print("AAAAA")
-        persona = get_object_or_404(Persona, numero_documento=id_persona)
-        print("BBBBB")
-        informacion_general = get_object_or_404(InformacionGeneral, id_persona=persona)
-        print("CCCCCCC")
-        informacion_general_serializer = InformacionGeneralSerializer(informacion_general)
-        print("DDDDDD")
+    def retrieve(self, request, id_persona=None ): 
+        persona = get_object_or_404(Persona, numero_documento=id_persona) 
+        informacion_general = get_object_or_404(InformacionGeneral, id_persona=persona) 
+        informacion_general_serializer = InformacionGeneralSerializer(informacion_general) 
         return Response(informacion_general_serializer.data)
     
     def update(self, request, id_persona=None, *args, **kwargs):
