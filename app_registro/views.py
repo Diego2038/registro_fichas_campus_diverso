@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from rest_framework import generics
 from .models import Persona, PertenenciaGrupoPoblacional
 from .serializers import PersonaSerializer, PertenenciaGrupoPoblacionalSerializer
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 # Persona
 """ class PersonaListCreateView(generics.ListCreateAPIView):
@@ -29,6 +30,14 @@ class persona_viewsets (viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return super().partial_update(request, *args, **kwargs)
+    
+    def update(self, request, numero_documento=None): 
+        persona = get_object_or_404(Persona, numero_documento=numero_documento)  
+        serializer = self.get_serializer(persona, data=request.data, partial=True) 
+        if serializer.is_valid(raise_exception=True):  
+            self.perform_update(serializer)
+            return Response(serializer.data)
+        return Response(serializer.errors) 
 
 # Pertenencia grupo poblacional
 

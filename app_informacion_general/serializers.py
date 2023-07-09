@@ -41,6 +41,7 @@ class EncuentroDiaHoraSerializer(serializers.ModelSerializer):
         model = EncuentroDiaHora
         fields = "__all__"
 
+#! Se utilizó esta clase para que excluya el campo id_informacion_general al momento de realizar la petición HTTP
 class EncuentroDiaHoraGetSerializer(serializers.ModelSerializer): 
     class Meta:
         model = EncuentroDiaHora
