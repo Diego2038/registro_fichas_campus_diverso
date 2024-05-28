@@ -5,8 +5,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
-from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer, FactorRiesgoSerializer, EncuentroDiaHoraSerializer
+from .models import InformacionGeneral, OcupacionActual, AcompanamientoRecibido, ProfesionalQueBrindoAtencion, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
+from .serializers import InformacionGeneralSerializer, OcupacionActualSerializer, AcompanamientoRecibidoSerializer, ProfesionalQueBrindoAtencionSerializer, ActividadTiempoLibreSerializer, FuenteIngresosSerializer, ConvivenciaViviendaSerializer, RedApoyoSerializer, FactorRiesgoSerializer, EncuentroDiaHoraSerializer
 from rest_framework import viewsets
 
 
@@ -144,6 +144,19 @@ class fuente_ingresos_viewsets (viewsets.ModelViewSet):
             return Response(serializer.data)
         return Response(serializer.errors) 
 
+# AcompanamientoRecibido
+class acompanamiento_recibido_viewsets (viewsets.ModelViewSet):
+    serializer_class = AcompanamientoRecibidoSerializer
+    queryset = AcompanamientoRecibidoSerializer.Meta.model.objects.all()
+
+    def update(self, request, pk=None, *args, **kwargs):
+        acompanamiento_recibido = get_object_or_404(AcompanamientoRecibido, id_fuente_ingreso=pk)
+        serializer = self.get_serializer(acompanamiento_recibido, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            self.perform_update(serializer)
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
 # ActividadTiempoLibre
 """ class ActividadTiempoLibreListCreateView(generics.ListCreateAPIView):
     queryset = ActividadTiempoLibre.objects.all()
@@ -182,6 +195,11 @@ class ocupacion_actual_viewsets (viewsets.ModelViewSet):
     serializer_class = OcupacionActualSerializer
     # permission_classes = (IsAuthenticated,)
     queryset = OcupacionActualSerializer.Meta.model.objects.all()
+
+# ProfesionalQueBrindoAtencion
+class profesional_que_brindo_atencion_viewsets (viewsets.ModelViewSet):
+    serializer_class = ProfesionalQueBrindoAtencionSerializer
+    queryset = ProfesionalQueBrindoAtencionSerializer.Meta.model.objects.all()
   
 # InformacionGeneral
 """ class InformacionGeneralListCreateView(generics.ListCreateAPIView):

@@ -14,7 +14,7 @@ class PertenenciaGrupoPoblacional(models.Model):
 
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
-    incluir_correo_en_respuesta = models.BooleanField(default=False)
+    email = models.CharField(max_length=500, blank=True, default="Email no registrado")
     nombre_identitario = models.CharField(max_length=150)
     nombre_y_apellido = models.CharField(max_length=150)
     tipo_documento = models.CharField(max_length=50)
@@ -29,16 +29,16 @@ class Persona(models.Model):
     ciudad_residencia = models.CharField(max_length=100, default="Ciudad no especificada")
     municipio_residencia = models.CharField(max_length=100, default="Municipio no especificado")
     corregimiento_residencia = models.CharField(max_length=100, default="Corregimiento no especificado")
-    zona_residencial = models.CharField(max_length=100)
-    direccion_residencia = models.CharField(max_length=200)
-    barrio_residencia = models.CharField(max_length=150)
+    zona_residencial = models.CharField(max_length=500)
+    direccion_residencia = models.CharField(max_length=500)
+    barrio_residencia = models.CharField(max_length=500)
     comuna_barrio = models.CharField(max_length=20)
-    telefono = models.CharField(max_length=20)
+    telefono = models.CharField(max_length=30)
     estado_civil = models.CharField(max_length=30)
     identidad_etnico_racial = models.CharField(max_length=70)
-    nombre_persona_de_confianza = models.TextField()
-    relacion_persona_de_confianza = models.TextField()
-    telefono_persona_de_confianza = models.TextField()
+    nombre_persona_de_confianza = models.CharField(max_length=200)
+    relacion_persona_de_confianza = models.CharField(max_length=200)
+    telefono_persona_de_confianza = models.CharField(max_length=100)
     pertenencia_grupo_poblacional = models.ManyToManyField(PertenenciaGrupoPoblacional,max_length=300, related_name="personas", blank=False) 
     
     def __str__(self):

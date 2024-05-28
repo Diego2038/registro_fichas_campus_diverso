@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app_registro.models import Persona
-from .models import InformacionGeneral, OcupacionActual, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
+from .models import InformacionGeneral, OcupacionActual, AcompanamientoRecibido, ProfesionalQueBrindoAtencion, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
 
  
 
@@ -15,6 +15,16 @@ class OcupacionActualSerializer(serializers.ModelSerializer):
     class Meta:
         model = OcupacionActual
         fields = '__all__' 
+
+class AcompanamientoRecibidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AcompanamientoRecibido
+        fields = '__all__'
+
+class ProfesionalQueBrindoAtencionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfesionalQueBrindoAtencion
+        fields = '__all__'
 
 class ActividadTiempoLibreSerializer(serializers.ModelSerializer): 
     class Meta:
@@ -59,6 +69,16 @@ class OcupacionActualListingField(serializers.RelatedField):
             return data['nombre_ocupacion_actual'].strip()
         raise serializers.ValidationError('Invalid input format.')
 
+class ProfesionalQueBrindoAtencionListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.nombre_profesional_que_brindo_atencion
+    
+    def to_internal_value(self, data):
+        if isinstance(data, str):
+            return data.strip()
+        elif isinstance(data, dict):
+            return data['nombre_profesional_que_brindo_atencion'].strip()
+        raise serializers.ValidationError('Invalid input format.')
 
 class ActividadTiempoLibreListingField(serializers.RelatedField):
     def to_representation(self, value):
@@ -88,7 +108,14 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         queryset=OcupacionActual.objects.all(),
         required=False,
     )
+
+    profesionales_que_brindo_atencion = ProfesionalQueBrindoAtencionListingField(
+        many=True,
+        queryset=ProfesionalQueBrindoAtencion.objects.all(),
+        required=False,
+    )
     
+    acompanamientos_recibido = AcompanamientoRecibidoSerializer(many=True)
     actividades_tiempo_libre = ActividadTiempoLibreSerializer(many=True)
     fuentes_de_ingresos = FuenteIngresosSerializer(many=True)
     convivencias_en_vivienda = ConvivenciaViviendaSerializer(many=True)
@@ -104,6 +131,8 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         id_persona = validated_data.pop('id_persona',[])
         
         ocupaciones_actuales = validated_data.pop('ocupaciones_actuales',[])
+        profesionales_que_brindo_atencion = validated_data.pop('profesionales_que_brindo_atencion',[])
+        acompanamientos_recibido = validated_data.pop('acompanamientos_recibido',[])
         actividades_tiempo_libre = validated_data.pop('actividades_tiempo_libre',[])
         fuentes_de_ingresos = validated_data.pop('fuentes_de_ingresos',[])
         convivencias_en_vivienda = validated_data.pop('convivencias_en_vivienda',[])
@@ -119,7 +148,16 @@ class InformacionGeneralSerializer(serializers.ModelSerializer):
         for nombre_ocupacion_actual in ocupaciones_actuales:
             ocupacion_actual, _ = OcupacionActual.objects.get_or_create(nombre_ocupacion_actual=nombre_ocupacion_actual)
             informacion_general.ocupaciones_actuales.add(ocupacion_actual)
-         
+        
+        # ProfesionalQueBrindoAtencion
+        for nombre_profesional_que_brindo_atencion in profesionales_que_brindo_atencion:
+            profesional_que_brindo_atencion, _ = ProfesionalQueBrindoAtencion.objects.get_or_create(nombre_profesional_que_brindo_atencion=nombre_profesional_que_brindo_atencion)
+            informacion_general.profesionales_que_brindo_atencion.add(profesional_que_brindo_atencion)
+        
+        # AcompanamientoRecibido
+        for acompanamiento_recibido in acompanamientos_recibido:
+            AcompanamientoRecibido.objects.create(id_informacion_general=informacion_general, **acompanamiento_recibido)
+        
         # ActividadTiempoLibre    
         for actividad_tiempo_libre_data in actividades_tiempo_libre: 
             ActividadTiempoLibre.objects.create(id_informacion_general=informacion_general,**actividad_tiempo_libre_data)

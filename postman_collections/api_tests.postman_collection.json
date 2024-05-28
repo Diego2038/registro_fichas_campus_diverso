@@ -1,0 +1,3528 @@
+{
+	"info": {
+		"_postman_id": "38c86912-71b5-4225-8948-d5b904fb78c4",
+		"name": "Ficha Registro Campus Diverso",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23383116"
+	},
+	"item": [
+		{
+			"name": "Persona (Registro)",
+			"item": [
+				{
+					"name": "Datos Personales",
+					"item": [
+						{
+							"name": "Crear Persona",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"let jsonData = pm.response.json();",
+											"console.log(jsonData.id_persona);",
+											"",
+											"if (!!jsonData.id_persona){",
+											"    pm.environment.set(\"numero_documento\", jsonData.numero_documento);",
+											"}",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre_identitario\": \"Papirrin 777\",\r\n  \"nombre_y_apellido\": \"Yon Cena\",\r\n  \"email\": \"papirrin@gmail.com\",\r\n  \"tipo_documento\": \"DNI\",\r\n  \"numero_documento\": \"777\",\r\n  \"fecha_nacimiento\": \"1990-01-01\",\r\n  \"estrato_socioeconomico\": 3,\r\n  \"municipio_nacimiento\": \"Bogotá\",\r\n  \"departamento_nacimiento\": \"Cundinamarca\",\r\n  \"pais_nacimiento\": \"Colombia\",\r\n  \"municipio_residencia\": \"Bogotá\",\r\n  \"zona_residencial\": \"Urbana\",\r\n  \"direccion_residencia\": \"Calle 123\",\r\n  \"barrio_residencia\": \"Barrio ABC\",\r\n  \"comuna_barrio\": \"Comuna 1\",\r\n  \"telefono\": \"1234567890\",\r\n  \"estado_civil\": \"Soltero\",\r\n  \"identidad_etnico_racial\": \"Blanco\",\r\n  \"pertenencia_grupo_poblacional\": [\"  Batman  \", \"Superman\"],\r\n  \"nombre_persona_de_confianza\": \"John Trah Voltah\",\r\n    \"relacion_persona_de_confianza\": \"Hermano\",\r\n    \"telefono_persona_de_confianza\": \"3185784622\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/persona/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"persona",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Persona",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();",
+											"console.log(jsonData.id_persona);",
+											"console.log(jsonData.numero_documento);",
+											"",
+											"if (!!jsonData.id_persona){",
+											"    console.log(jsonData.numero_documento);",
+											"    pm.environment.set(\"numero_documento\", jsonData.numero_documento);",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/persona/777/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"persona",
+										"777",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Personas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/persona/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"persona",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Persona",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n       \r\n     \r\n    \"identidad_etnico_racial\": \"Negro canela pasión\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/persona/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"persona",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Persona",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/persona/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"persona",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pertenencia Grupo Poblacional",
+					"item": [
+						{
+							"name": "Crear Pertenencia grupo poblacional",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_grupo_poblacional\": \"Azteca\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/pertenencia_grupo_poblacional/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"pertenencia_grupo_poblacional",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Pertenencia grupo poblacional",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/pertenencia_grupo_poblacional/21/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"pertenencia_grupo_poblacional",
+										"21",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Pertenencia grupos poblacionales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/pertenencia_grupo_poblacional/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"pertenencia_grupo_poblacional",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Pertenencia grupo poblacional",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"nombre_grupo_poblacional\": \"Aztecx\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/pertenencia_grupo_poblacional/21/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"pertenencia_grupo_poblacional",
+										"21",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Pertenencia grupo poblacional",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/persona/pertenencia_grupo_poblacional/21/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"persona",
+										"pertenencia_grupo_poblacional",
+										"21",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Diversidad Sexual",
+			"item": [
+				{
+					"name": "Diversidad Sexual",
+					"item": [
+						{
+							"name": "Crear Diversidad Sexual",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n        \"id_persona\": {{numero_documento}},\r\n        \"respuestas_cambio_documento\": [\r\n            \"Negación por parte de la notaría o registraduria\",\r\n            \"El trámite es muy costosoxo\"\r\n        ],\r\n        \"orientaciones_sexuales\": [\r\n            \"Lesbiana (Mujer que se siente atraída por otra mujer)\",\r\n            \"Gay (Hombre que se siente atraído por otro hombre)\"\r\n        ],\r\n        \"expresiones_de_genero\":[\r\n            \"Femenina/o/e\",\r\n            \"Masculina/o/e/x\"\r\n        ],\r\n        \"identidades_de_genero\": [\r\n            \"Transfemenina (persona trans que se indentifica con las feminidades)\",\r\n            \"Tranmasculina (persona trans que se indentifica con las masculinidadess)\"\r\n        ],\r\n        \"pronombres\": [\r\n            \"Ella, Ellitax\", \"FENIX\"\r\n        ],\r\n        \"cambio_nombre_sexo_documento\": \"No pero le interesa\",\r\n        \"recibir_orientacion_cambio_en_documento\": true\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/diversidad-sexual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"diversidad-sexual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Diversidad Sexual",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/diversidad-sexual/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"diversidad-sexual",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Diversidades Sexuales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/diversidad-sexual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"diversidad-sexual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Diversidad Sexual",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//! Fix: Update in arrays where name is the principle key"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"identidades_de_genero\": [\r\n        \"Transfemenismo no binarie\"\r\n    ],\r\n    \"pronombres\": [\r\n        \"FENIX\"\r\n    ],\r\n    \"cambio_nombre_sexo_documento\": \"No pero le interesa\",\r\n    \"recibir_orientacion_cambio_en_documento\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/diversidad-sexual/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"diversidad-sexual",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Diversidad Sexual",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/diversidad-sexual/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"diversidad-sexual",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pronombre",
+					"item": [
+						{
+							"name": "Crear Pronombre",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_pronombre\": \"Ellxs\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/pronombre/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"pronombre",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Pronombre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/pronombre/5/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"pronombre",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Pronombres",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/pronombre/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"pronombre",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Pronombre",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_pronombre\": \"Ellitxz\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/pronombre/5/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"pronombre",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Pronombre",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/pronombre/5/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"pronombre",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Identidad Genero",
+					"item": [
+						{
+							"name": "Crear Identidad Género",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_identidad_genero\": \"Transfemenina (persona trans que se indentifica con las feminidades o similares)\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/identidad-genero/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"identidad-genero",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Identidad Género",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/identidad-genero/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"identidad-genero",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Identidades de Género",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/identidad-genero/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"identidad-genero",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Identidad Género",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"id_identidad_genero\": 1,\r\n        \"nombre_identidad_genero\": \"Transfemenina (persona trans que se indentifica con las feminidades)\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/identidad-genero/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"identidad-genero",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Identidad Género",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/identidad-genero/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"identidad-genero",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Expresión Genero",
+					"item": [
+						{
+							"name": "Crear Expresión Género",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_expresion_genero\": \"femenina\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/expresion-genero/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"expresion-genero",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Expresión Género",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/expresion-genero/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"expresion-genero",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Expresión de Género",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/expresion-genero/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"expresion-genero",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Expresión Género",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_expresion_genero\": \"Femenina/o/e/x\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/expresion-genero/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"expresion-genero",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Expresión Género",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/expresion-genero/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"expresion-genero",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orientación Sexual",
+					"item": [
+						{
+							"name": "Crear Orientación Sexual",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_orientacion_sexual\": \"Lesbianx\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/orientacion-sexual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"orientacion-sexual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Orientación Sexual",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/orientacion-sexual/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"orientacion-sexual",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Orientaciones Sexuales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/orientacion-sexual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"orientacion-sexual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Orientación Sexual",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_orientacion_sexual\": \"Lesbiana (Mujer que se siente atraída por otra mujerx)\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/orientacion-sexual/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"orientacion-sexual",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Orientación Sexual",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/orientacion-sexual/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"orientacion-sexual",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Respuesta Cambio Documento",
+					"item": [
+						{
+							"name": "Crear Respuesta Cambio Documento",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_respuesta_cambio_documento\": \"Era festivo\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/respuesta-cambio-documento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"respuesta-cambio-documento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Respuesta Cambio Documento",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/respuesta-cambio-documento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"respuesta-cambio-documento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Respuestas Cambio Documento",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/respuesta-cambio-documento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"respuesta-cambio-documento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Respuesta Cambio Documento",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_respuesta_cambio_documento\": \"Negación por parte de la notaría o registraduria\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/respuesta-cambio-documento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"respuesta-cambio-documento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Respuesta Cambio Documento",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/diversidad-sexual/respuesta-cambio-documento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"diversidad-sexual",
+										"respuesta-cambio-documento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Información Académica",
+			"item": [
+				{
+					"name": "Información Académica",
+					"item": [
+						{
+							"name": "Crear Información Académica",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id_persona\": {{numero_documento}},\r\n  \"estamentos\":[\r\n      \"Estudiante pregrado\",\r\n      \"Funcionarix\"\r\n  ],\r\n  \"pertenencia_univalle\": true,\r\n  \"sede_universidad\":\"Meléndez\",\r\n  \"nombre_programa_academico\":\"Ingeniería topográfica\",\r\n  \"codigo_estudiante\":\"1745082\",\r\n  \"semestre_academico\":3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/informacion-academica/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"informacion-academica",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Información Académica",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/informacion-academica/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"informacion-academica",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Informaciones Académicas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/informacion-academica/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"informacion-academica",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Información Académica",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"sede_universidad\":\"Cartago\", \r\n  \"semestre_academico\":5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/informacion-academica/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"informacion-academica",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Información Académica",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/informacion-academica/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"informacion-academica",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Estamento",
+					"item": [
+						{
+							"name": "Crear Estamento",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_estamento\": \"Capuchito\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/estamento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"estamento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Estamento",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/estamento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"estamento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Estamentos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/estamento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"estamento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Estamento",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_estamento\": \"Estudiante de Pregrado\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/estamento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"estamento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Estamento",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-academica/estamento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-academica",
+										"estamento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Información General",
+			"item": [
+				{
+					"name": "Información General",
+					"item": [
+						{
+							"name": "Crear Información General",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"dedicacion_externa\": \"Consultor independiente\",\r\n    \"tiene_eps\": \"Sí\",\r\n    \"nombre_eps\": \"SURA\",\r\n    \"regimen_eps\": \"contributivo\",\r\n    \"encuentro_dias_horas\": [\r\n        { \r\n            \"dia\": \"Sábado\",\r\n            \"hora\": \"11:00:00\" \r\n        },\r\n        { \r\n            \"dia\": \"Sábado\",\r\n            \"hora\": \"12:00:00\" \r\n        },\r\n        { \r\n            \"dia\": \"Sábado\",\r\n            \"hora\": \"13:00:00\" \r\n        }\r\n    ],\r\n    \"factores_de_riesgo\": [\r\n        {\r\n            \"nombre_factor_riesgo\": \"Adicción a jugar LoL\",\r\n            \"observacion_factor_riesgo\": \"Quiere pasar a Oro para tener la skin anual\"\r\n        },\r\n        {\r\n            \"nombre_factor_riesgo\": \"Fármacodependiente\"\r\n        }\r\n    ],\r\n    \"redes_de_apoyo\": [\r\n        {\r\n            \"nombre_red_apoyo\": \"Familiar\"\r\n        },\r\n        {\r\n            \"nombre_red_apoyo\": \"Educativo\",\r\n            \"observacion_red_apoyo\": \"Le dieron capucha los capuchos\"\r\n        }\r\n    ],\r\n    \"convivencias_en_vivienda\": [\r\n        {\r\n            \"nombre_convivencia_vivienda\": \"padre\",\r\n            \"observacion_convivencia_vivienda\": \"Patrulla las calles por la noche con su baticinturon\"\r\n        },\r\n        {\r\n            \"nombre_convivencia_vivienda\": \"madre\"\r\n        }\r\n    ],\r\n    \"fuentes_de_ingresos\": [\r\n        {\r\n            \"nombre_fuente_ingresos\": \"Venta de galletas mágicas\",\r\n            \"observacion_fuente_ingresos\": \"Sospechoso\"\r\n        },\r\n        {\r\n            \"nombre_fuente_ingresos\": \"Curso en monitoría\"\r\n        }\r\n    ],\r\n    \"actividades_tiempo_libre\": [\r\n        {\r\n            \"nombre_actividad_tiempo_libre\": \"Actividad física jejeje\"\r\n        },\r\n        {\r\n            \"nombre_actividad_tiempo_libre\": \"Actividad mental jejeje\",\r\n            \"observacion_actividad_tiempo_libre\": \"Se concentra mucho\"\r\n        }\r\n    ],\r\n    \"acompanamientos_recibido\": [\r\n        {\r\n          \"nombre_acompanamiento_recibido\": \"Médico\",\r\n          \"observacion_acompanamiento_recibido\": \"El médicio me dio buenas bases pero fueron insuficientes para mi caso de transición de género\" \r\n        },\r\n        {\r\n          \"nombre_acompanamiento_recibido\": \"Vocacional\",\r\n          \"observacion_acompanamiento_recibido\": \"El profesor no me dio buenas bases\" \r\n        }\r\n    ],\r\n    \"ocupaciones_actuales\": [\r\n        \"Empleado/a\",\r\n        \"Independiente\"\r\n    ],\r\n    \"profesionales_que_brindo_atencion\" : [\r\n        \"Médico\",\r\n        \"Trabajo Social\"\r\n    ],\r\n    \"tipo_entidad_acompanamiento_recibido\": \"Universidad ABC\",\r\n    \"calificacion_acompanamiento_recibido\": 4,\r\n    \"motivo_calificacion_acompanamiento\": \"El profesional demostró gran empatía y conocimiento en su área\",\r\n    \"actividades_especificas_tiempo_libre\": \"Practicar senderismo y tocar guitarra\",\r\n    \"observacion_general_actividades_especificas_tiempo_libre\": \"Me gusta pasar tiempo al aire libre y aprender nuevos acordes en la guitarra\",\r\n    \"observacion_general_fuente_de_ingresos\": \"Trabajo como freelancer en diseño gráfico\",\r\n    \"observacion_general_relacion_convivencia_vivienda\": \"Tengo una relación cercana y de apoyo con mi familia\",\r\n    \"calificacion_relacion_familiar\": 3,\r\n    \"observacion_general_redes_de_apoyo\": \"Participo en grupos de estudio y cuento con amigos cercanos\",\r\n    \"observacion_general_factores_de_riesgo\": \"No tengo factores de riesgo significativos\",\r\n    \"creencia_religiosa\": \"Soy agnóstico\",\r\n    \"decision_encuentro_inicial_con_profesional\": \"Sesión informativa\",\r\n    \"observacion_horario\": \"Prefiero las mañanas para mis actividades\",\r\n    \"origen_descubrimiento_campus_diverso\": \"Lo descubrí a través de un compañero de clase\",\r\n    \"comentarios_o_sugerencias_de_usuario\": \"Excelente plataforma, sugiero agregar más recursos educativos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/informacion-general/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"informacion-general",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Información General",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/informacion-general/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"informacion-general",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Informaciones General",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/informacion-general/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"informacion-general",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Información General",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"tipo_entidad_acompanamiento_recibido\": \"Universidad Barcelona\",\r\n  \"tiene_eps\": \"Sí, pero estoy desactivado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/informacion-general/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"informacion-general",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Información General",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/informacion-general/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"informacion-general",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Información Ocupación",
+					"item": [
+						{
+							"name": "Crear Información Ocupación",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_ocupacion_actual\": \"Empleadito\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/ocupacion-actual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"ocupacion-actual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Información Ocupación",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/ocupacion-actual/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"ocupacion-actual",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Informaciones Ocupación",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/ocupacion-actual/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"ocupacion-actual",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Información Ocupación",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_ocupacion_actual\": \"Empleado/a/x\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/ocupacion-actual/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"ocupacion-actual",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Información General",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/ocupacion-actual/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"ocupacion-actual",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Acompanamiento Recibido",
+					"item": [
+						{
+							"name": "Crear Acompanamiento Recibido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_acompanamiento_recibido\": \"Psicosocial\",\r\n    \"observacion_acompanamiento_recibido\": \"Fue una reunión muy interesante, pero siento que no fue suficiente\",\r\n    \"id_informacion_general\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/acompanamiento-recibido/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"acompanamiento-recibido",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Acompanamiento Recibido",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/acompanamiento-recibido/67/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"acompanamiento-recibido",
+										"67",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Acompanamiento Recibido",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/acompanamiento-recibido/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"acompanamiento-recibido",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Acompanamiento Recibido",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"observacion_acompanamiento_recibido\": \"Le dice balon mano al futbol, y no me gustó que mi psicólogo dijera eso\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/acompanamiento-recibido/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"acompanamiento-recibido",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Acompanamiento Recibido",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/acompanamiento-recibido/67/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"acompanamiento-recibido",
+										"67",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Profesional Que Brindo Atencion",
+					"item": [
+						{
+							"name": "Crear Profesional Que Brindo Atencion",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_profesional_que_brindo_atencion\": \"Trabajador social\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/profesional-que-brindo-atencion/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"profesional-que-brindo-atencion",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Profesional Que Brindo Atencion",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/profesional-que-brindo-atencion/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"profesional-que-brindo-atencion",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Profesional Que Brindo Atencion",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/profesional-que-brindo-atencion/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"profesional-que-brindo-atencion",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Profesional Que Brindo Atencion",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_profesional_que_brindo_atencion\": \"Trabajor Social Supremo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/profesional-que-brindo-atencion/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"profesional-que-brindo-atencion",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Profesional Que Brindo Atencion",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/profesional-que-brindo-atencion/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"profesional-que-brindo-atencion",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Actividad tiempo libre",
+					"item": [
+						{
+							"name": "Crear Actividad Tiempo Libre",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_actividad_tiempo_libre\": \"Actividad física\", \r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/actividad-tiempo-libre/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"actividad-tiempo-libre",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Actividad Tiempo Libre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/actividad-tiempo-libre/67/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"actividad-tiempo-libre",
+										"67",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Actividades Tiempo Libre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/actividad-tiempo-libre/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"actividad-tiempo-libre",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Actividad Tiempo Libre",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"observacion_actividad_tiempo_libre\": \"Le dice balon mano al futbol\",\r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/actividad-tiempo-libre/67/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"actividad-tiempo-libre",
+										"67",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Información General",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/actividad-tiempo-libre/67/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"actividad-tiempo-libre",
+										"67",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Fuente Ingresos",
+					"item": [
+						{
+							"name": "Crear Fuente Ingresos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_fuente_ingresos\": \"Camellar\",  \r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/fuente-ingresos/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"fuente-ingresos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Fuente Ingresos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/fuente-ingresos/44/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"fuente-ingresos",
+										"44",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Fuente Ingresos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/fuente-ingresos/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"fuente-ingresos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Fuente ingresos",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n  \"observacion_fuente_ingresos\": \"Gana bien como ingeniero jejejeej\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/fuente-ingresos/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"fuente-ingresos",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Fuente ingresos",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/fuente-ingresos/44/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"fuente-ingresos",
+										"44",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Convivencia Vivienda",
+					"item": [
+						{
+							"name": "Crear Convivencia Vivienda",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_convivencia_vivienda\": \"Madree21\",  \r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/convivencia-vivienda/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"convivencia-vivienda",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Convivencia Vivienda",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/convivencia-vivienda/42/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"convivencia-vivienda",
+										"42",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Convivencia Vivienda",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/convivencia-vivienda/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"convivencia-vivienda",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Convivencia Vivienda",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n  \"observacion_convivencia_vivienda\": \"Mira telenovelas turcas en la madrugada jejejeje\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/convivencia-vivienda/42/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"convivencia-vivienda",
+										"42",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Convivencia Vivienda",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/convivencia-vivienda/42/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"convivencia-vivienda",
+										"42",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Red Apoyo",
+					"item": [
+						{
+							"name": "Crear Red Apoyo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_red_apoyo\": \"Familiar\",  \r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/red-apoyo/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"red-apoyo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Red Apoyo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/red-apoyo/33/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"red-apoyo",
+										"33",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Redes Apoyo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/red-apoyo/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"red-apoyo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Red Apoyo",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n  \"observacion_red_apoyo\": \"Blablabwwewela\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/red-apoyo/33/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"red-apoyo",
+										"33",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Red apoyo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/red-apoyo/33/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"red-apoyo",
+										"33",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Factor Riesgo",
+					"item": [
+						{
+							"name": "Crear Factor Riesgo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"nombre_factor_riesgo\": \"Discrimación por orientación\",  \r\n  \"id_informacion_general\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/factor-riesgo/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"factor-riesgo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Factor Riesgo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/factor-riesgo/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"factor-riesgo",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Factores Riesgo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/factor-riesgo/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"factor-riesgo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Factor Riesgo",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{     \r\n  \"observacion_factor_riesgo\":\"Acoso escolar por aspectos graves\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/factor-riesgo/30/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"factor-riesgo",
+										"30",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Factor Riesgo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/factor-riesgo/30/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"factor-riesgo",
+										"30",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Encuentro Dia Hora",
+					"item": [
+						{
+							"name": "Crear Encuentro Dia Hora",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"dia\":\"Lunes\",\r\n  \"hora\": \"15:00:00\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/encuentro-dia-hora/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"encuentro-dia-hora",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Encuentro Dia Hora",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/encuentro-dia-hora/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"encuentro-dia-hora",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Encuentros Dia Hora",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/encuentro-dia-hora/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"encuentro-dia-hora",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Encuentro Dia Hora",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"dia\":\"Miércoles\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/encuentro-dia-hora/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"encuentro-dia-hora",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Encuentro Dia Hora",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/informacion-general/encuentro-dia-hora/15/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"informacion-general",
+										"encuentro-dia-hora",
+										"15",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Documentos Autorización",
+			"item": [
+				{
+					"name": "Documentos Autorización",
+					"item": [
+						{
+							"name": "Crear Documentos Autorización",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"autorizacion_manejo_de_datos\": true,\r\n    \"firma_consentimiento_informado\": true,\r\n    \"firma_terapia_hormonal\": null,\r\n    \"documento_digital_y_archivo\": true,\r\n    \"apgar_familiar\": 9,\r\n    \"ecomapa\": null,\r\n    \"arbol_familiar\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/documentos-autorizacion/documentos-autorizacion/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"documentos-autorizacion",
+										"documentos-autorizacion",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Documentos Autorización",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/documentos-autorizacion/documentos-autorizacion/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"documentos-autorizacion",
+										"documentos-autorizacion",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver todos los Documentos de Autorización",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/documentos-autorizacion/documentos-autorizacion/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"documentos-autorizacion",
+										"documentos-autorizacion",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Documentos de Autorización",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"autorizacion_manejo_de_datos\": true,\r\n    \"firma_consentimiento_informado\": false,\r\n    \"firma_terapia_hormonal\": false, \r\n    \"ecomapa\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/documentos-autorizacion/documentos-autorizacion/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"documentos-autorizacion",
+										"documentos-autorizacion",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Documentos Autorización",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/documentos-autorizacion/documentos-autorizacion/{{numero_documento}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"documentos-autorizacion",
+										"documentos-autorizacion",
+										"{{numero_documento}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Seguimiento",
+			"item": [
+				{
+					"name": "Seguimiento",
+					"item": [
+						{
+							"name": "Crear Seguimiento",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"let theJson = pm.response.json();",
+											"console.log(theJson.id_seguimiento);",
+											"if ( !!(theJson.id_seguimiento) ){",
+											"    pm.environment.set(\"id_seguimiento\",theJson.id_seguimiento);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"id_profesional\": {{id_profesional}},\r\n    \"fecha\": \"2023-06-13\",\r\n    \"observacion\":\"El paciente olvidó las llaves\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/seguimiento/seguimiento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"seguimiento",
+										"seguimiento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Seguimiento",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let theJson = pm.response.json();",
+											"console.log(theJson.id_seguimiento);",
+											"",
+											"if ( !!(theJson.id_seguimiento) ){",
+											"   pm.environment.set(\"id_seguimiento\", theJson.id_seguimiento); ",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/seguimiento/seguimiento/9/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"seguimiento",
+										"seguimiento",
+										"9",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Seguimientos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/seguimiento/seguimiento/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"seguimiento",
+										"seguimiento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Seguimientos",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n    \"observacion\":\"Iba a haber una reunión, pero hubo tropel\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/seguimiento/seguimiento/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"seguimiento",
+										"seguimiento",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Seguimientos",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/seguimiento/seguimiento/2/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"seguimiento",
+										"seguimiento",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Profesional",
+			"item": [
+				{
+					"name": "Profesional",
+					"item": [
+						{
+							"name": "Crear Profesional",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"let jsonData = pm.response.json();",
+											"console.log(jsonData.id_profesional);",
+											"",
+											"if (!!jsonData.id_profesional){",
+											"    pm.environment.set(\"nick\", jsonData.nick);",
+											"    pm.environment.set(\"id_profesional\", jsonData.id_profesional);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nick\": \"victorio777\",\r\n    \"nombre\": \"Victor Pineda\",\r\n    \"password\": \"pass123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profesional/profesional/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profesional",
+										"profesional",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Profesional",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();",
+											"console.log(jsonData.id_profesional);",
+											"",
+											"if (!!jsonData.id_profesional){",
+											"    pm.environment.set(\"nick\", jsonData.nick);",
+											"    pm.environment.set(\"id_profesional\", jsonData.id_profesional);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profesional/profesional/victorio777/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profesional",
+										"profesional",
+										"victorio777",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver Profesionales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profesional/profesional/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profesional",
+										"profesional",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar Profesional",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n    \"password\": \"pass555\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/profesional/profesional/{{nick}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profesional",
+										"profesional",
+										"{{nick}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar Profesional",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/profesional/profesional/{{nick}}/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"profesional",
+										"profesional",
+										"{{nick}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

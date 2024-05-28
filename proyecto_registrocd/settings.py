@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 variable_user = os.getenv('USER')
 variable_password = os.getenv('PASSWORD')
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'app_informacion_general',
     'app_documentos_autorizacion',
     'app_seguimiento',
+    'app_profesional',
     'rest_framework',
     'django_extensions',
 ]
