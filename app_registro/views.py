@@ -1,7 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
-# Create your views here.
-from rest_framework import generics
 from .models import Persona, PertenenciaGrupoPoblacional
 from .serializers import PersonaSerializer, PertenenciaGrupoPoblacionalSerializer
 from rest_framework import viewsets

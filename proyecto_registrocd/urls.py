@@ -26,5 +26,5 @@ urlpatterns = [
     path('informacion-general/', include('app_informacion_general.routers')),
     path('documentos-autorizacion/', include('app_documentos_autorizacion.routers')),
     path('seguimiento/', include('app_seguimiento.routers')),
-    path('profesional/', include('app_profesional.routers'))
+    path('profesional/', include('app_profesional.routers')),
 ]

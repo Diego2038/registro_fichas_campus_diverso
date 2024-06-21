@@ -1,14 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-
-from app_registro.models import Persona
-
-class Profesional(models.Model):
-    id_profesional = models.AutoField(primary_key=True)
-    nick = models.CharField(max_length=150)
-    nombre = models.CharField(max_length=150)
-    password = models.CharField(max_length=150)
-
+class UserProfesional(AbstractUser):
+    username = models.CharField(max_length=30, unique=True)
+    password = models.TextField()
+    email = models.EmailField()
+ 
     def __str__(self):
-        return f"Profesional {self.id_profesional} - {self.nombre}"
+        return self.username

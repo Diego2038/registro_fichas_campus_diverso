@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.  
 
 class PertenenciaGrupoPoblacional(models.Model):
     id_grupo_poblacional = models.AutoField(primary_key=True)

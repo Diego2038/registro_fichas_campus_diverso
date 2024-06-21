@@ -1,6 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
-# Create your views here.
 from rest_framework import generics, status
 from .models import Seguimiento
 from .serializers import SeguimientoSerializer

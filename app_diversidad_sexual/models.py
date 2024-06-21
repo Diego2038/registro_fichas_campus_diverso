@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 from app_registro.models import Persona
 
 class RespuestaCambioDocumento(models.Model):

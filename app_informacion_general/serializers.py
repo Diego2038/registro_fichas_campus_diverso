@@ -2,10 +2,6 @@ from rest_framework import serializers
 from app_registro.models import Persona
 from .models import InformacionGeneral, OcupacionActual, AcompanamientoRecibido, ProfesionalQueBrindoAtencion, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
 
- 
-
-# Serializers 
-
 class FuenteIngresosSerializer(serializers.ModelSerializer):
     class Meta:
         model = FuenteIngresos

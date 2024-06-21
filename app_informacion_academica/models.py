@@ -1,8 +1,6 @@
 from django.db import models
 from app_registro.models import Persona
 
-# Create your models here.
-
 class Estamento(models.Model):
     id_estamento = models.AutoField(primary_key=True)
     nombre_estamento = models.CharField(max_length=100)

@@ -76,7 +76,13 @@ In Postgres you have to create a database with the same name as defined in the *
 3. **Configure environment variables:**
 - After importing the collection, check if there are any environment variables required.
 - Go to the **Environments** section in Postman.
-- Create a new environment or update an existing one with the necessary variables (**numero_documento**, **id_profesional**, **nick**, **id_seguimiento**)
+- Create a new environment or update an existing one with the next necessary variables:
+    - **numero_documento** 
+    - **id_profesional** 
+    - **nick** 
+    - **id_seguimiento** 
+    - **token** 
+    - **url** (this variable must be set to the URL where the server is mounted)
 - Set the values for these variables according to your local setup.
 
 4. **Run the collection:**

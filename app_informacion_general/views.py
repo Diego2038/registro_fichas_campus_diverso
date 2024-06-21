@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.request import Request
 from django.shortcuts import get_object_or_404
 from app_registro.models import Persona
 from .models import InformacionGeneral, OcupacionActual, AcompanamientoRecibido, ProfesionalQueBrindoAtencion, ActividadTiempoLibre, FuenteIngresos, ConvivenciaVivienda, RedApoyo, FactorRiesgo, EncuentroDiaHora
@@ -149,13 +149,30 @@ class acompanamiento_recibido_viewsets (viewsets.ModelViewSet):
     serializer_class = AcompanamientoRecibidoSerializer
     queryset = AcompanamientoRecibidoSerializer.Meta.model.objects.all()
 
+    def partial_update(self, request, *args, **kwargs):
+        print("EL PEPEPPE")
+        return super().partial_update(request, *args, **kwargs)
+
     def update(self, request, pk=None, *args, **kwargs):
-        acompanamiento_recibido = get_object_or_404(AcompanamientoRecibido, id_fuente_ingreso=pk)
+        acompanamiento_recibido = get_object_or_404(AcompanamientoRecibido, id_acompanamiento_recibido=pk)
         serializer = self.get_serializer(acompanamiento_recibido, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             self.perform_update(serializer)
             return Response(serializer.data)
         return Response(serializer.errors)
+
+    def create(self, request: Request, *args, **kwargs):
+        id_persona = request.data.get("id_persona")
+        # print(request.data)
+        persona = get_object_or_404(Persona, numero_documento=id_persona)
+        informacion_general = get_object_or_404(InformacionGeneral, id_persona=persona)
+        print(informacion_general.id_informacion_general)
+        # serializer = InformacionGeneralSerializer(informacion_general)
+        return super().create(request, id_informacion_general=informacion_general.id_informacion_general, *args, **kwargs)
+        # if serializer.is_valid(raise_exception=True):  
+        #     self.create(serializer)
+        #     return Response(serializer.data)
+        # return Response(serializer.errors) 
 
 # ActividadTiempoLibre
 """ class ActividadTiempoLibreListCreateView(generics.ListCreateAPIView):

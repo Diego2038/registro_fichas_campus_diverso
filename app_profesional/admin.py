@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profesional
-# Register your models here.
+from django.contrib.auth.admin import UserAdmin
+from .models import UserProfesional
 
-admin.site.register(Profesional)
+admin.site.register(UserProfesional, UserAdmin)
