@@ -6,7 +6,7 @@ from app_profesional.models import UserProfesional
 class Seguimiento(models.Model):
     id_seguimiento = models.AutoField(primary_key=True)
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, blank=False, null=False, related_name="seguimientos")
-    profesionales = models.ManyToManyField(UserProfesional, blank=False, null=False, related_name="profesionales")
+    profesionales = models.ManyToManyField(UserProfesional, blank=False, related_name="seguimientos")
     fecha = models.DateField()
     observacion = models.TextField(blank=False, null=False)
     
