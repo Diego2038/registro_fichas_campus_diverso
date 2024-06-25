@@ -129,11 +129,11 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Extracción de campos de la petición JSON
         id_persona = validated_data.pop('id_persona')
-        respuestas_cambio_documento = validated_data.pop('respuestas_cambio_documento')
-        orientaciones_sexuales = validated_data.pop('orientaciones_sexuales')
-        expresiones_de_genero = validated_data.pop('expresiones_de_genero')
+        respuestas_cambio_documento = validated_data.pop('respuestas_cambio_documento', [])
+        orientaciones_sexuales = validated_data.pop('orientaciones_sexuales', [])
+        expresiones_de_genero = validated_data.pop('expresiones_de_genero', [])
         pronombres = validated_data.pop('pronombres', [])
-        identidades_de_genero = validated_data.pop('identidades_de_genero')
+        identidades_de_genero = validated_data.pop('identidades_de_genero', [])
         
         persona = Persona.objects.get(numero_documento=id_persona) #! Así son más fáciles las consultas
         
@@ -166,3 +166,51 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
             diversidad_sexual.pronombres.add(pronombres)
         
         return diversidad_sexual 
+    
+    def update(self, instance, validated_data):
+        respuestas_cambio_documento = validated_data.pop('respuestas_cambio_documento', [])
+        orientaciones_sexuales = validated_data.pop('orientaciones_sexuales', [])
+        expresiones_de_genero = validated_data.pop('expresiones_de_genero', [])
+        identidades_de_genero = validated_data.pop('identidades_de_genero', [])
+        pronombres = validated_data.pop('pronombres', [])
+        
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        
+        # RespuestaCambioDocumento
+        if respuestas_cambio_documento:
+            instance.respuestas_cambio_documento.clear()
+            for nombre_respuesta_cambio_documento in respuestas_cambio_documento:
+                respuesta_cambio_documento, _ = RespuestaCambioDocumento.objects.get_or_create(nombre_respuesta_cambio_documento=nombre_respuesta_cambio_documento)
+                instance.respuestas_cambio_documento.add(respuesta_cambio_documento)
+        
+        # OrientacionSexual
+        if orientaciones_sexuales:
+            instance.orientaciones_sexuales.clear()
+            for nombre_orientacion_sexual in orientaciones_sexuales:
+                orientacion_sexual, _ = OrientacionSexual.objects.get_or_create(nombre_orientacion_sexual=nombre_orientacion_sexual)
+                instance.orientaciones_sexuales.add(orientacion_sexual)
+        
+        # ExpresionGenero
+        if expresiones_de_genero:
+            instance.expresiones_de_genero.clear()
+            for nombre_expresion_genero in expresiones_de_genero:
+                expresion_genero, _ = ExpresionGenero.objects.get_or_create(nombre_expresion_genero=nombre_expresion_genero)
+                instance.expresiones_de_genero.add(expresion_genero)
+        
+        # IdentidadGenero
+        if identidades_de_genero:
+            instance.identidades_de_genero.clear()
+            for nombre_identidad_genero in identidades_de_genero:
+                identidad_genero, _ = IdentidadGenero.objects.get_or_create(nombre_identidad_genero=nombre_identidad_genero)
+                instance.identidades_de_genero.add(identidad_genero)
+        
+        # Pronombre
+        if pronombres:
+            instance.pronombres.clear()
+            for nombre_pronombre in pronombres:
+                pronombre, _ = Pronombre.objects.get_or_create(nombre_pronombre=nombre_pronombre)
+                instance.pronombres.add(pronombre)
+        
+        return super().update(instance, validated_data)

@@ -78,7 +78,7 @@ python manage.py createsuperuser
 
 5. Create the user with the username and password (it should be noted that a created password is saved encrypted in the DB)
 
-6. Now, it's already possible to make the Login User request, in this way you can make all the requests of this application (for more information consult the considerations section).
+6. Now, it's already possible to make the Login User request, in this way you can make all the requests of this application (for more information consult the ***How to recreate the postman*** section).
 
 ## Considerations
 A **.env** file must be created to set the pertinent state variables, just as it is in the **.env.example** file, there the specifications for the connection to the database will be defined. via Postgres.<br><br>
