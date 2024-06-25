@@ -167,7 +167,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"identidad_etnico_racial\": \"Mestizo\"\r\n}",
+									"raw": "{\r\n    \"identidad_etnico_racial\": \"Mestizo\",\r\n    \"pertenencia_grupo_poblacional\": [\r\n        \"Wallmart\" \r\n    ] // It's possible because this field exists\r\n    // \"pertenencia_grupo_poblacional\": [\r\n    //     \"Palenquera/o/e\",\r\n    //     \"Tairona\" \r\n    // ] // This fields should be created individually to allow update this request\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -376,14 +376,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/persona/pertenencia_grupo_poblacional/21/",
+									"raw": "{{url}}/persona/pertenencia_grupo_poblacional/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"persona",
 										"pertenencia_grupo_poblacional",
-										"21",
+										"3",
 										""
 									]
 								}
@@ -868,7 +868,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"id_identidad_genero\": 1,\r\n        \"nombre_identidad_genero\": \"Transfemenina (persona trans que se indentifica con las feminidades)\"\r\n    }",
+									"raw": "{\r\n        \"nombre_identidad_genero\": \"Transfemenina (persona trans que se indentifica con las feminidades femeninas)\"\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1460,7 +1460,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id_persona\": {{numero_documento}},\r\n  \"estamentos\":[\r\n      \"Estudiante pregrado\",\r\n      \"Funcionarix\"\r\n  ],\r\n  \"pertenencia_univalle\": true,\r\n  \"sede_universidad\":\"Meléndez\",\r\n  \"nombre_programa_academico\":\"Ingeniería topográfica\",\r\n  \"codigo_estudiante\":\"1745082\",\r\n  \"semestre_academico\":3\r\n}",
+									"raw": "{\r\n  \"id_persona\": {{numero_documento}},\r\n  \"estamentos\":[\r\n      \"Estudiante pregrado\",\r\n      \"Funcionario\"\r\n  ],\r\n  \"pertenencia_univalle\": true,\r\n  \"sede_universidad\":\"Meléndez\",\r\n  \"nombre_programa_academico\":\"Ingeniería topográfica\",\r\n  \"codigo_estudiante\":\"1745082\",\r\n  \"semestre_academico\":3\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1557,7 +1557,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"sede_universidad\":\"Cartago\", \r\n  \"semestre_academico\":5,\r\n  \"estamentos\":[\r\n      \"Estudiante pregrado\" // Se debe de permitir hacer estos cambios\r\n  ]\r\n}",
+									"raw": "{  \r\n  \"sede_universidad\":\"Cartago\", \r\n  \"semestre_academico\":5,\r\n  \"estamentos\":[\r\n      \"Funcionario\"\r\n  ] // It's possible because this field exists\r\n//   \"estamentos\":[\r\n//       \"Estudiante posgradox\"\r\n//   ] // This fields should be created individually to allow do this request\r\n} ",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1792,6 +1792,22 @@
 					"item": [
 						{
 							"name": "Crear Información General",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();\r",
+											"\r",
+											"if (!!jsonData.id_informacion_general){\r",
+											"    pm.environment.set(\"id_informacion_general\", jsonData.id_informacion_general);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1830,6 +1846,24 @@
 						},
 						{
 							"name": "ver Información General",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();\r",
+											"\r",
+											"if (!!jsonData.id_informacion_general){\r",
+											"    console.log(jsonData.numero_documento);\r",
+											"    pm.environment.set(\"id_informacion_general\", jsonData.id_informacion_general);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1904,7 +1938,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tipo_entidad_acompanamiento_recibido\": \"Universidad Barcelona\",\r\n    \"tiene_eps\": \"Sí, pero estoy desactivado\",\r\n    \"acompanamientos_recibido\": [\r\n        {\r\n            \"nombre_acompanamiento_recibido\": \"Médicox\",\r\n            \"observacion_acompanamiento_recibido\": \"El médicio mxe dio buenas bases pero fueron insuficientes para mi caso de transición de génerox\"\r\n            //\"id_informacion_general\": 3 // Arreglar!!!\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"tipo_entidad_acompanamiento_recibido\": \"Universidad Barcelona\",\r\n    \"tiene_eps\": \"No lo sabe\",\r\n    \"ocupaciones_actuales\": [\r\n        \"Empleado/a\",\r\n        \"Influencer\"\r\n    ],\r\n    \"profesionales_que_brindo_atencion\": [\r\n        \"Enfermera\",\r\n        \"Trabajador Social\"\r\n    ],\r\n    \"acompanamientos_recibido\": [\r\n        {\r\n            \"id_acompanamiento_recibido\": 2,\r\n            \"nombre_acompanamiento_recibido\": \"Otra ifweprijewiwejr\",\r\n            \"observacion_acompanamiento_recibido\": \"El médicio mxe dio buenas bases pero fueron insuficientes para mi caso de transición de génerox\"\r\n        },\r\n        {\r\n            \"nombre_acompanamiento_recibido\": \"OTra cosa wmsaeqweq\",\r\n            \"observacion_acompanamiento_recibido\": \"Realizó una revisión judicial\"\r\n        } // without its id, a new item is created\r\n    ],\r\n    \"actividades_tiempo_libre\": [\r\n        {\r\n            \"id_actividad_tiempo_libre\": 2,\r\n            \"nombre_actividad_tiempo_libre\": \"Actividad lúdica\",\r\n            \"observacion_actividad_tiempo_libre\": \"Sin observación\"\r\n        },\r\n        {\r\n            \"nombre_actividad_tiempo_libre\": \"Convertir el agua en vino\",\r\n            \"observacion_actividad_tiempo_libre\": \"Una vez lo logró\"\r\n        } // without its id, a new item is created\r\n    ],\r\n    \"fuentes_de_ingresos\": [\r\n        {\r\n            \"id_fuente_ingresos\": 2,\r\n            \"nombre_fuente_ingresos\": \"Venta de fresitas con crema\",\r\n            \"observacion_fuente_ingresos\": \"Saben ricas\"\r\n        },\r\n        {\r\n            \"nombre_fuente_ingresos\": \"Influencer\",\r\n            \"observacion_fuente_ingresos\": \"También hace reseñas de películas\"\r\n        } // without its id, a new item is created\r\n    ],\r\n    \"convivencias_en_vivienda\": [\r\n        {\r\n            \"nombre_convivencia_vivienda\": \"Padre adoptivo\",\r\n            \"observacion_convivencia_vivienda\": \"Patrulla las calles por la noche con su baticinturon\"\r\n        }, // without its id, a new item is created\r\n        {\r\n            \"id_convivencia_vivienda\": 2,\r\n            \"nombre_convivencia_vivienda\": \"Abuelo\",\r\n            \"observacion_convivencia_vivienda\": \"Vive en un camper\"\r\n        }\r\n    ],\r\n    \"redes_de_apoyo\": [\r\n        {\r\n            \"id_red_apoyo\": 2,\r\n            \"nombre_red_apoyo\": \"Familiar espacial\",\r\n            \"observacion_red_apoyo\": \"Es una familia muy feliz\"\r\n        },\r\n        {\r\n            \"nombre_red_apoyo\": \"Virtuales\"\r\n        } // without its id, a new item is created\r\n    ],\r\n    \"factores_de_riesgo\": [\r\n        {\r\n            \"id_factor_riesgo\": 2,\r\n            \"nombre_factor_riesgo\": \"Adicción a jugar al sapo\",\r\n            \"observacion_factor_riesgo\": \"Le encanta tirar argollas y meterla en los huecos\"\r\n        },\r\n        {\r\n            \"nombre_factor_riesgo\": \"Soledad\",\r\n            \"observacion_factor_riesgo\": \"Tiene poco contacto en su estudio y trabajo\"\r\n        }\r\n    ] // without its id, a new item is created\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2075,7 +2109,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_ocupacion_actual\": \"Empleado/a/x\"\r\n}",
+									"raw": "{  \r\n  \"nombre_ocupacion_actual\": \"Monitor\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2149,7 +2183,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre_acompanamiento_recibido\": \"sdafpmpelrwijmliwrik\",\r\n    \"observacion_acompanamiento_recibido\": \"Fue una reunión muy interesante, pero siento que no fue suficiente\",\r\n    \"id_persona\": {{numero_documento}}, // Este dato no sirve aqui, pero deberia\r\n    \"id_informacion_general\": 6\r\n}",
+									"raw": "{\r\n    \"nombre_acompanamiento_recibido\": \"sdafpmpelrwijmliwrik\",\r\n    \"observacion_acompanamiento_recibido\": \"Fue una reunión muy interesante, pero siento que no fue suficiente\",\r\n    \"id_persona\": {{numero_documento}}, // Este dato no sirve aqui, pero deberia\r\n    \"id_informacion_general\": {{id_informacion_general}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2186,14 +2220,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/acompanamiento-recibido/6/",
+									"raw": "{{url}}/informacion-general/acompanamiento-recibido/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"acompanamiento-recibido",
-										"6",
+										"3",
 										""
 									]
 								}
@@ -2254,14 +2288,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/acompanamiento-recibido/1/",
+									"raw": "{{url}}/informacion-general/acompanamiento-recibido/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"acompanamiento-recibido",
-										"1",
+										"3",
 										""
 									]
 								}
@@ -2284,14 +2318,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/acompanamiento-recibido/27/",
+									"raw": "{{url}}/informacion-general/acompanamiento-recibido/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"acompanamiento-recibido",
-										"27",
+										"3",
 										""
 									]
 								}
@@ -2491,7 +2525,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_actividad_tiempo_libre\": \"Actividad física\", \r\n  \"id_informacion_general\":4\r\n}\r\n",
+									"raw": "{  \r\n  \"nombre_actividad_tiempo_libre\": \"Actividad física\", \r\n  \"id_informacion_general\": {{id_informacion_general}}\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2528,14 +2562,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/7/",
+									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"actividad-tiempo-libre",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2588,7 +2622,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"observacion_actividad_tiempo_libre\": \"Convertir el agua en vino\"\r\n  //\"id_informacion_general\":2\r\n}\r\n",
+									"raw": "{  \r\n  \"observacion_actividad_tiempo_libre\": \"Convertir el agua en vino con una cuchara\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2596,14 +2630,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/7/",
+									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"actividad-tiempo-libre",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2626,14 +2660,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/7/",
+									"raw": "{{url}}/informacion-general/actividad-tiempo-libre/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"actividad-tiempo-libre",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2662,7 +2696,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_fuente_ingresos\": \"Camellar\",  \r\n  \"id_informacion_general\":4\r\n}\r\n",
+									"raw": "{  \r\n  \"nombre_fuente_ingresos\": \"Camellar\",  \r\n  \"id_informacion_general\": {{id_informacion_general}}\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2699,14 +2733,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/fuente-ingresos/7/",
+									"raw": "{{url}}/informacion-general/fuente-ingresos/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"fuente-ingresos",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2767,14 +2801,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/fuente-ingresos/7/",
+									"raw": "{{url}}/informacion-general/fuente-ingresos/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"fuente-ingresos",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2797,14 +2831,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/fuente-ingresos/7/",
+									"raw": "{{url}}/informacion-general/fuente-ingresos/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"fuente-ingresos",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2833,7 +2867,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_convivencia_vivienda\": \"Madree21\",  \r\n  \"id_informacion_general\": 4\r\n}\r\n",
+									"raw": "{  \r\n  \"nombre_convivencia_vivienda\": \"Madree21\",  \r\n  \"id_informacion_general\": {{id_informacion_general}}\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2870,14 +2904,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/convivencia-vivienda/7/",
+									"raw": "{{url}}/informacion-general/convivencia-vivienda/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"convivencia-vivienda",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2938,14 +2972,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/convivencia-vivienda/7/",
+									"raw": "{{url}}/informacion-general/convivencia-vivienda/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"convivencia-vivienda",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -2968,14 +3002,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/convivencia-vivienda/7/",
+									"raw": "{{url}}/informacion-general/convivencia-vivienda/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"convivencia-vivienda",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3004,7 +3038,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_red_apoyo\": \"Familiar\",  \r\n  \"id_informacion_general\":4\r\n}\r\n",
+									"raw": "{  \r\n  \"nombre_red_apoyo\": \"Familiar\",  \r\n  \"id_informacion_general\": {{id_informacion_general}}\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3041,14 +3075,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/red-apoyo/7/",
+									"raw": "{{url}}/informacion-general/red-apoyo/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"red-apoyo",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3109,14 +3143,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/red-apoyo/7/",
+									"raw": "{{url}}/informacion-general/red-apoyo/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"red-apoyo",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3139,14 +3173,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/red-apoyo/7/",
+									"raw": "{{url}}/informacion-general/red-apoyo/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"red-apoyo",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3175,7 +3209,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"nombre_factor_riesgo\": \"Discrimación por orientación\",  \r\n  \"id_informacion_general\": 4\r\n}\r\n",
+									"raw": "{  \r\n  \"nombre_factor_riesgo\": \"Discrimación por orientación\",  \r\n  \"id_informacion_general\": {{id_informacion_general}}\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3212,14 +3246,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/factor-riesgo/7/",
+									"raw": "{{url}}/informacion-general/factor-riesgo/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"factor-riesgo",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3272,7 +3306,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{     \r\n  \"observacion_factor_riesgo\":\"Acoso escolar por aspectos graves\"\r\n}",
+									"raw": "{     \r\n  \"observacion_factor_riesgo\":\"Acoso escolar por intolerancia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3280,14 +3314,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/factor-riesgo/7/",
+									"raw": "{{url}}/informacion-general/factor-riesgo/3/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"factor-riesgo",
-										"7",
+										"3",
 										""
 									]
 								}
@@ -3383,14 +3417,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/encuentro-dia-hora/4/",
+									"raw": "{{url}}/informacion-general/encuentro-dia-hora/2/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"encuentro-dia-hora",
-										"4",
+										"2",
 										""
 									]
 								}
@@ -3443,7 +3477,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{  \r\n  \"dia\":\"Miércoles\" \r\n}",
+									"raw": "{  \r\n  \"dia\":\"Miércoles\",\r\n  \"id_informacion_general\": [\r\n    {{id_informacion_general}}\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3451,14 +3485,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/informacion-general/encuentro-dia-hora/4/",
+									"raw": "{{url}}/informacion-general/encuentro-dia-hora/2/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"encuentro-dia-hora",
-										"4",
+										"2",
 										""
 									]
 								}
@@ -3481,14 +3515,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/informacion-general/encuentro-dia-hora/4/",
+									"raw": "{{url}}/informacion-general/encuentro-dia-hora/2/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"informacion-general",
 										"encuentro-dia-hora",
-										"4",
+										"2",
 										""
 									]
 								}
@@ -3522,7 +3556,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"autorizacion_manejo_de_datos\": true,\r\n    \"firma_consentimiento_informado\": true,\r\n    \"firma_terapia_hormonal\": null,\r\n    \"documento_digital_y_archivo\": true,\r\n    \"apgar_familiar\": 9,\r\n    \"ecomapa\": null,\r\n    \"arbol_familiar\": true\r\n}",
+									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"autorizacion_manejo_de_datos\": true,\r\n    \"firma_consentimiento_informado\": true,\r\n    \"firma_terapia_hormonal\": null,\r\n    \"documento_digital_y_archivo\": true,\r\n    \"apgar_familiar\": null,\r\n    \"ecomapa\": null,\r\n    \"arbol_familiar\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3716,7 +3750,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"profesionales\": [\r\n        {{id_profesional}}\r\n    ],\r\n    \"fecha\": \"2023-06-13\",\r\n    \"observacion\": \"El paciente olvidó las llaves\"\r\n}",
+									"raw": "{\r\n    \"id_persona\": {{numero_documento}},\r\n    \"profesionales\": [\r\n        \"victorio20241\"\r\n        // \"otro\"\r\n    ],\r\n    \"fecha\": \"2023-06-13\",\r\n    \"observacion\": \"El paciente olvidó las llaves\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3830,7 +3864,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"observacion\": \"Iba a haber una reunión, pero hubo tropel\",\r\n    \"profesionales\": [\r\n        3,\r\n        2\r\n    ]\r\n}",
+									"raw": "{\r\n    \"observacion\": \"Iba a haber una reunión, pero hubo tropel\",\r\n    \"profesionales\": [\r\n        \"victorio20241\",\r\n        \"other\"\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4043,7 +4077,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"victormodificado123@email.com\"\r\n}",
+									"raw": "{\r\n    \"email\": \"victormodificado123@email.com\",\r\n    \"password\": \"pass123\" // Update this attribute is forbidden\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

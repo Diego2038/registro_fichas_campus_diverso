@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import NotFound
 from app_registro.models import Persona
 from .models import InformacionAcademica, Estamento
 
@@ -32,11 +33,13 @@ class InformacionAcademicaSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def create(self, validated_data):
-        id_persona = validated_data.pop('id_persona')
+        id_persona = validated_data.pop('id_persona', None)
         
         estamentos = validated_data.pop('estamentos',[])
         
-        persona = Persona.objects.get(numero_documento=id_persona)
+        persona = Persona.objects.filter(numero_documento=id_persona).first()
+        if not persona:
+            raise NotFound(detail=f"The id_persona {id_persona} don't exist", code=404)
         
         informacion_academica = InformacionAcademica.objects.create(id_persona=persona, **validated_data)
         
@@ -46,6 +49,23 @@ class InformacionAcademicaSerializer(serializers.ModelSerializer):
         
         return informacion_academica
         
+    def update(self, instance, validated_data):
+        estamentos = validated_data.pop('estamentos',[])
+        
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        
+        # RespuestaCambioDocumento
+        if estamentos:
+            instance.estamentos.clear()
+            for nombre_estamento in estamentos:
+                estamento = Estamento.objects.filter(nombre_estamento=nombre_estamento).first()
+                if not estamento:
+                    raise NotFound(detail=f'The estamento "{nombre_estamento}" don\'t exist', code=404)  
+                instance.estamentos.add(estamento)
+                
+        return super().update(instance, validated_data)
     
     
       

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import NotFound
 from .models import Persona, PertenenciaGrupoPoblacional
 from app_diversidad_sexual.serializers import DiversidadSexualSerializer
 from app_diversidad_sexual.models import DiversidadSexual
@@ -82,4 +83,21 @@ class PersonaSerializer(serializers.ModelSerializer):
          
         return persona
         
+    def update(self, instance, validated_data):
+        pertenencia_grupo_poblacional = validated_data.pop('pertenencia_grupo_poblacional',[])
+        
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        
+        # RespuestaCambioDocumento
+        if pertenencia_grupo_poblacional:
+            instance.pertenencia_grupo_poblacional.clear()
+            for nombre_grupo_poblacional in pertenencia_grupo_poblacional:
+                estamento = PertenenciaGrupoPoblacional.objects.filter(nombre_grupo_poblacional=nombre_grupo_poblacional).first()
+                if not estamento:
+                    raise NotFound(detail=f'The grupo poblacional "{nombre_grupo_poblacional}" don\'t exist', code=404)  
+                instance.pertenencia_grupo_poblacional.add(estamento)
+                
+        return super().update(instance, validated_data) 
     

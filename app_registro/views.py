@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Persona, PertenenciaGrupoPoblacional
 from .serializers import PersonaSerializer, PertenenciaGrupoPoblacionalSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 # Persona
@@ -36,6 +36,11 @@ class persona_viewsets (viewsets.ModelViewSet):
             self.perform_update(serializer)
             return Response(serializer.data)
         return Response(serializer.errors) 
+
+    def destroy(self, request, *args, **kwargs):
+        return Response({
+            "error": 'It\'s forbidden to do this action'
+        }, status=status.HTTP_403_FORBIDDEN)
 
 # Pertenencia grupo poblacional
 

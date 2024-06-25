@@ -103,6 +103,7 @@ In Postgres you have to create a database with the same name as defined in the *
     - **id_profesional** 
     - **nick** 
     - **id_seguimiento** 
+    - **id_informacion_general**
     - **token** 
     - **url** (this variable must be set to the URL where the server is mounted, if you're executing this code in your local host then establish it as ***localhost:8000***)
 - Set the values for these variables according to your local setup.

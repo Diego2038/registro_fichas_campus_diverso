@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import NotFound
 from .models import DiversidadSexual, Pronombre, IdentidadGenero, ExpresionGenero, OrientacionSexual, RespuestaCambioDocumento
 from app_registro.models import Persona
 
@@ -135,7 +136,9 @@ class DiversidadSexualSerializer(serializers.ModelSerializer):
         pronombres = validated_data.pop('pronombres', [])
         identidades_de_genero = validated_data.pop('identidades_de_genero', [])
         
-        persona = Persona.objects.get(numero_documento=id_persona) #! Así son más fáciles las consultas
+        persona = Persona.objects.filter(numero_documento=id_persona).first()
+        if not persona:
+            raise NotFound(detail=f"The id_persona {id_persona} don't exist", code=404)
         
         # Creación del objeto DiversidadSexual
         diversidad_sexual = DiversidadSexual.objects.create(id_persona=persona, **validated_data)

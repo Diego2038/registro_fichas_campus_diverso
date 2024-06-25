@@ -20,6 +20,12 @@ class profesional_viewsets(viewsets.ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
     
     def update(self, request, username=None):
+        password = request.data.get('password', None)
+        print(f"pass: {password}")
+        if password: 
+            return Response({
+                    "error": 'It\'s forbidden update the password, contact the admin please'
+                }, status=status.HTTP_403_FORBIDDEN)
         profesional = get_object_or_404(UserProfesional, username=username)
         serializer = self.get_serializer(profesional, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
